@@ -1,0 +1,9 @@
+{
+    "id" : "Journal",
+    "version" : "0.1.0",
+    "author" : "Marcin Sciesinski <marcins78@gmail.com>",
+    "displayName" : "Journal",
+    "description" : "Allows displaying story to the player, tracking progress in mods or game in general",
+    "dependencies" : [],
+    "isServerSideOnly" : false
+}
