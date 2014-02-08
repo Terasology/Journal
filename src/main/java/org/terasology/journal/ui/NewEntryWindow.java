@@ -15,27 +15,45 @@
  */
 package org.terasology.journal.ui;
 
-import org.terasology.asset.Assets;
-import org.terasology.rendering.gui.widgets.UIImage;
-import org.terasology.rendering.gui.widgets.UIWindow;
-
-import javax.vecmath.Vector2f;
+import org.terasology.rendering.nui.Canvas;
+import org.terasology.rendering.nui.CoreScreenLayer;
 
 /**
  * @author Marcin Sciesinski <marcins78@gmail.com>
  */
-public class NewEntryWindow extends UIWindow {
-    public NewEntryWindow() {
-        setId("Journal:NewEntry");
+public class NewEntryWindow extends CoreScreenLayer {
 
-        setVerticalAlign(EVerticalAlign.TOP);
-        setHorizontalAlign(EHorizontalAlign.RIGHT);
+    private float alpha = 1f;
 
-        UIImage image = new UIImage(Assets.getTexture("Journal:NewJournalEntry"));
-        image.setSize(new Vector2f(235, 50));
+    public void setAlpha(float alpha) {
+        this.alpha = alpha;
+    }
 
-        addDisplayElement(image);
+    @Override
+    public void initialise() {
+    }
 
-        setSize(new Vector2f(235, 50));
+    @Override
+    public void onDraw(Canvas canvas) {
+        canvas.setAlpha(alpha);
+
+        super.onDraw(canvas);
+
+        canvas.setAlpha(1f);
+    }
+
+    @Override
+    public boolean isModal() {
+        return false;
+    }
+
+    @Override
+    public boolean isReleasingMouse() {
+        return false;
+    }
+
+    @Override
+    public boolean isEscapeToCloseAllowed() {
+        return false;
     }
 }

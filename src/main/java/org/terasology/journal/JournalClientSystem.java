@@ -27,10 +27,7 @@ import org.terasology.journal.ui.NewEntryWindow;
 import org.terasology.logic.manager.GUIManager;
 import org.terasology.network.ClientComponent;
 import org.terasology.registry.In;
-import org.terasology.rendering.gui.animation.AnimationOpacity;
-import org.terasology.rendering.gui.framework.UIDisplayElement;
-import org.terasology.rendering.gui.framework.events.AnimationListener;
-import org.terasology.rendering.gui.widgets.UIWindow;
+import org.terasology.rendering.nui.NUIManager;
 
 /**
  * @author Marcin Sciesinski <marcins78@gmail.com>
@@ -38,19 +35,19 @@ import org.terasology.rendering.gui.widgets.UIWindow;
 @RegisterSystem(RegisterMode.CLIENT)
 public class JournalClientSystem implements UpdateSubscriberSystem {
     @In
+    private NUIManager nuiManager;
+    @In
     private GUIManager guiManager;
     @In
     private Time time;
 
-    private long timeNotificationOpened = 5000;
-    private long lastNotificationReceived;
+    private final static long FULL_ALPHA_TIME = 3000;
+    private final static long DIM_ALPHA_TIME = 1500;
 
-    private boolean newEntryFull;
-    private boolean newEntryFadingOut;
+    private long lastNotificationReceived;
 
     @Override
     public void initialise() {
-        guiManager.registerWindow("Journal:NewEntry", NewEntryWindow.class);
         guiManager.registerWindow("Journal:Journal", JournalWindow.class);
     }
 
@@ -60,35 +57,18 @@ public class JournalClientSystem implements UpdateSubscriberSystem {
 
     @Override
     public void update(float delta) {
-        if (newEntryFull && !newEntryFadingOut && lastNotificationReceived + timeNotificationOpened < time.getGameTimeInMs()) {
-            fadeNewEntryWindow();
-        }
-    }
+        long currentTime = time.getGameTimeInMs();
+        float alpha = (currentTime > lastNotificationReceived + FULL_ALPHA_TIME + DIM_ALPHA_TIME) ? 0f :
+                currentTime > lastNotificationReceived + FULL_ALPHA_TIME ? 1f - ((currentTime - lastNotificationReceived - FULL_ALPHA_TIME) / (1f * DIM_ALPHA_TIME)) : 1f;
 
-    private void fadeNewEntryWindow() {
-        final UIWindow window = guiManager.getWindowById("Journal:NewEntry");
-        if (window != null) {
-            AnimationOpacity opacityAnimation = new AnimationOpacity(1f, 0f, 10f);
-            window.addAnimation(opacityAnimation);
-            opacityAnimation.addAnimationListener(
-                    new AnimationListener() {
-                        @Override
-                        public void start(UIDisplayElement element) {
-                        }
-
-                        @Override
-                        public void stop(UIDisplayElement element) {
-                            window.close();
-                            newEntryFadingOut = false;
-                        }
-
-                        @Override
-                        public void repeat(UIDisplayElement element) {
-                        }
-                    });
-            opacityAnimation.start();
-            newEntryFull = false;
-            newEntryFadingOut = true;
+        NewEntryWindow window = ((NewEntryWindow) nuiManager.getScreen("Journal:NewEntryWindow"));
+        if (alpha == 0f && window != null) {
+            nuiManager.closeScreen(window);
+        } else {
+            if (window == null) {
+                window = (NewEntryWindow) nuiManager.pushScreen("Journal:NewEntryWindow");
+            }
+            window.setAlpha(alpha);
         }
     }
 
@@ -102,7 +82,5 @@ public class JournalClientSystem implements UpdateSubscriberSystem {
     @ReceiveEvent
     public void newEntryNotificationReceived(NewJournalEntryDiscoveredEvent event, EntityRef character) {
         lastNotificationReceived = time.getGameTimeInMs();
-        newEntryFull = true;
-        guiManager.openWindow("Journal:NewEntry");
     }
 }
