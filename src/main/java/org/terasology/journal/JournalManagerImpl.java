@@ -66,7 +66,17 @@ public class JournalManagerImpl implements ComponentSystem, JournalManager {
     public boolean hasEntry(EntityRef player, String chapterId, String entryId) {
         JournalAccessComponent journal = player.getComponent(JournalAccessComponent.class);
         List<String> entryIds = journal.discoveredJournalEntries.get(chapterId);
-        return entryIds != null && entryIds.contains(entryId);
+        if (entryIds == null) {
+            return false;
+        }
+        for (String id : entryIds) {
+            String[] entrySplit = id.split("\\|", 2);
+            if (entrySplit[1].equals(entryId)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     @Override

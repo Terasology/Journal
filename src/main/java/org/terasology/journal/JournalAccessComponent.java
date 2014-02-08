@@ -16,6 +16,7 @@
 package org.terasology.journal;
 
 import org.terasology.entitySystem.Component;
+import org.terasology.network.Replicate;
 
 import java.util.List;
 import java.util.Map;
@@ -24,5 +25,6 @@ import java.util.Map;
  * @author Marcin Sciesinski <marcins78@gmail.com>
  */
 public class JournalAccessComponent implements Component {
+    @Replicate
     public Map<String, List<String>> discoveredJournalEntries;
 }
