@@ -16,7 +16,10 @@
 package org.terasology.journal;
 
 import org.terasology.entitySystem.entity.EntityRef;
+import org.terasology.math.Rect2i;
+import org.terasology.math.Vector2i;
 import org.terasology.rendering.assets.texture.Texture;
+import org.terasology.rendering.nui.Canvas;
 
 import java.util.List;
 import java.util.Map;
@@ -28,6 +31,8 @@ public interface JournalManager {
     void registerJournalChapter(String chapterId, Texture icon, String name);
 
     void registerJournalEntry(String chapterId, String entryId, String text);
+
+    void registerJournalEntry(String chapterId, String entryId, List<JournalEntryPart> journalEntryParts);
 
     boolean hasEntry(EntityRef player, String chapterId, String entryId);
 
@@ -42,6 +47,12 @@ public interface JournalManager {
     public interface JournalEntry {
         long getDate();
 
-        String getText();
+        List<JournalEntryPart> getParts();
+    }
+
+    public interface JournalEntryPart {
+        Vector2i getPreferredSize(Canvas canvas);
+
+        void render(Canvas canvas, Rect2i region);
     }
 }

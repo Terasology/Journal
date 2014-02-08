@@ -1,0 +1,24 @@
+{
+    "type" : "JournalNUIWindow",
+    "skin" : "Journal:journal",
+    "contents" : {
+        "type" : "relativeLayout",
+        "contents" : [
+                {
+                    "type" : "ScrollableArea",
+                    "id": "scrollable",
+                    "content" : {
+                        "type" : "UIList",
+                        "id": "journalList"
+                    },
+                    "family": "journalList",
+                    "layoutInfo" : {
+                        "width" : 450,
+                        "height" : 600,
+                        "position-horizontal-center" : {},
+                        "position-vertical-center" : {}
+                    }
+                }
+            ]
+    }
+}

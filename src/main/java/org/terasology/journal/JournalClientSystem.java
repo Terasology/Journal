@@ -22,9 +22,7 @@ import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.entitySystem.systems.UpdateSubscriberSystem;
 import org.terasology.input.ButtonState;
-import org.terasology.journal.ui.JournalWindow;
 import org.terasology.journal.ui.NewEntryWindow;
-import org.terasology.logic.manager.GUIManager;
 import org.terasology.network.ClientComponent;
 import org.terasology.registry.In;
 import org.terasology.rendering.nui.NUIManager;
@@ -37,8 +35,6 @@ public class JournalClientSystem implements UpdateSubscriberSystem {
     @In
     private NUIManager nuiManager;
     @In
-    private GUIManager guiManager;
-    @In
     private Time time;
 
     private final static long FULL_ALPHA_TIME = 3000;
@@ -48,7 +44,6 @@ public class JournalClientSystem implements UpdateSubscriberSystem {
 
     @Override
     public void initialise() {
-        guiManager.registerWindow("Journal:Journal", JournalWindow.class);
     }
 
     @Override
@@ -64,7 +59,7 @@ public class JournalClientSystem implements UpdateSubscriberSystem {
         NewEntryWindow window = ((NewEntryWindow) nuiManager.getScreen("Journal:NewEntryWindow"));
         if (alpha == 0f && window != null) {
             nuiManager.closeScreen(window);
-        } else {
+        } else if (alpha > 0f) {
             if (window == null) {
                 window = (NewEntryWindow) nuiManager.pushScreen("Journal:NewEntryWindow");
             }
@@ -75,7 +70,7 @@ public class JournalClientSystem implements UpdateSubscriberSystem {
     @ReceiveEvent(components = ClientComponent.class)
     public void openJournal(JournalButton event, EntityRef character) {
         if (event.getState() == ButtonState.DOWN) {
-            guiManager.openWindow("Journal:Journal");
+            nuiManager.toggleScreen("Journal:JournalWindow");
         }
     }
 
