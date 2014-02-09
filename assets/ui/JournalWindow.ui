@@ -30,9 +30,8 @@
                 "layoutInfo": {
                     "width": 80,
                     "height": 600,
-                    "position-horizontal-center": {
+                    "position-right": {
                         "target": "LEFT",
-                        "offset": -30,
                         "widget": "entries"
                     },
                     "position-vertical-center": {}
