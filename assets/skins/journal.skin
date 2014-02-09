@@ -24,6 +24,25 @@
                     }
                 }
             }
+        },
+        "chapterList": {
+            "elements": {
+                "ScrollableArea": {
+                    "background": ""
+                },
+                "UIList": {
+                    "parts": {
+                        "item": {
+                            "background": "Journal:ChapterBackground",
+                            "modes": {
+                                "active": {
+                                    "background": "Journal:ChapterBackgroundSelected"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

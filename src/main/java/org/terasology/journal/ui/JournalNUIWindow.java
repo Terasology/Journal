@@ -20,8 +20,10 @@ import org.terasology.journal.JournalManager;
 import org.terasology.logic.players.LocalPlayer;
 import org.terasology.registry.CoreRegistry;
 import org.terasology.rendering.nui.CoreScreenLayer;
+import org.terasology.rendering.nui.UIWidget;
 import org.terasology.rendering.nui.databinding.Binding;
 import org.terasology.rendering.nui.layouts.ScrollableArea;
+import org.terasology.rendering.nui.widgets.ItemActivateEventListener;
 import org.terasology.rendering.nui.widgets.UIList;
 
 import java.util.LinkedList;
@@ -33,16 +35,21 @@ import java.util.Map;
  */
 public class JournalNUIWindow extends CoreScreenLayer {
     private UIList<JournalManager.JournalEntry> journalList;
-    private JournalEntryRenderer renderer = new JournalEntryRenderer();
+    private UIList<JournalManager.JournalChapter> chapterList;
+
+    private JournalEntryRenderer entryRenderer = new JournalEntryRenderer();
+    private JournalChapterRenderer chapterRenderer = new JournalChapterRenderer();
+
+    private JournalManager.JournalChapter selectedChapter;
 
     @Override
     public void initialise() {
-        final ScrollableArea scrollArea = find("scrollable", ScrollableArea.class);
+        final ScrollableArea scrollArea = find("entries", ScrollableArea.class);
         scrollArea.moveToBottom();
 
         journalList = (UIList<JournalManager.JournalEntry>) find("journalList", UIList.class);
 
-        journalList.setItemRenderer(renderer);
+        journalList.setItemRenderer(entryRenderer);
         journalList.bindSelection(
                 new Binding<JournalManager.JournalEntry>() {
                     @Override
@@ -55,7 +62,45 @@ public class JournalNUIWindow extends CoreScreenLayer {
                     }
                 });
 
-        updateJournal();
+        chapterList = (UIList<JournalManager.JournalChapter>) find("chapterList", UIList.class);
+
+        chapterList.setItemRenderer(chapterRenderer);
+        chapterList.subscribe(
+                new ItemActivateEventListener<JournalManager.JournalChapter>() {
+                    @Override
+                    public void onItemActivated(UIWidget widget, JournalManager.JournalChapter item) {
+                        updateJournal();
+                    }
+                });
+
+        updateChapters();
+        List<JournalManager.JournalChapter> chapters = chapterList.getList();
+        if (chapters.size() > 0) {
+            chapterList.setSelection(chapters.get(0));
+        }
+    }
+
+    @Override
+    public void update(float delta) {
+        JournalManager.JournalChapter selection = chapterList.getSelection();
+        if (selection != selectedChapter) {
+            selectedChapter = selection;
+            updateJournal();
+        }
+    }
+
+    private void updateChapters() {
+        JournalManager journalManager = CoreRegistry.get(JournalManager.class);
+        EntityRef playerEntity = CoreRegistry.get(LocalPlayer.class).getCharacterEntity();
+        Map<JournalManager.JournalChapter, List<JournalManager.JournalEntry>> playerEntries = journalManager.getPlayerEntries(playerEntity);
+
+        List<JournalManager.JournalChapter> entries = new LinkedList<>();
+
+        for (JournalManager.JournalChapter journalChapter : playerEntries.keySet()) {
+            entries.add(journalChapter);
+        }
+
+        chapterList.setList(entries);
     }
 
     private void updateJournal() {
@@ -65,10 +110,8 @@ public class JournalNUIWindow extends CoreScreenLayer {
 
         List<JournalManager.JournalEntry> entries = new LinkedList<>();
 
-        for (List<JournalManager.JournalEntry> chapterContents : playerEntries.values()) {
-            for (JournalManager.JournalEntry chapterEntry : chapterContents) {
-                entries.add(chapterEntry);
-            }
+        for (JournalManager.JournalEntry chapterEntry : playerEntries.get(selectedChapter)) {
+            entries.add(chapterEntry);
         }
 
         journalList.setList(entries);

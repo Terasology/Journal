@@ -1,24 +1,43 @@
 {
-    "type" : "JournalNUIWindow",
-    "skin" : "Journal:journal",
-    "contents" : {
-        "type" : "relativeLayout",
-        "contents" : [
-                {
-                    "type" : "ScrollableArea",
-                    "id": "scrollable",
-                    "content" : {
-                        "type" : "UIList",
-                        "id": "journalList"
-                    },
-                    "family": "journalList",
-                    "layoutInfo" : {
-                        "width" : 450,
-                        "height" : 600,
-                        "position-horizontal-center" : {},
-                        "position-vertical-center" : {}
-                    }
+    "type": "JournalNUIWindow",
+    "skin": "Journal:journal",
+    "contents": {
+        "type": "relativeLayout",
+        "contents": [
+            {
+                "type": "ScrollableArea",
+                "id": "entries",
+                "content": {
+                    "type": "UIList",
+                    "id": "journalList"
+                },
+                "family": "journalList",
+                "layoutInfo": {
+                    "width": 450,
+                    "height": 600,
+                    "position-horizontal-center": {},
+                    "position-vertical-center": {}
                 }
-            ]
+            },
+            {
+                "type": "ScrollableArea",
+                "id": "chapters",
+                "content": {
+                    "type": "UIList",
+                    "id": "chapterList"
+                },
+                "family": "chapterList",
+                "layoutInfo": {
+                    "width": 80,
+                    "height": 600,
+                    "position-horizontal-center": {
+                        "target": "LEFT",
+                        "offset": -30,
+                        "widget": "entries"
+                    },
+                    "position-vertical-center": {}
+                }
+            }
+        ]
     }
 }
