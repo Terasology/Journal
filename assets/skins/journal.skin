@@ -2,36 +2,25 @@
     "inherit": "default",
     "families": {
         "journalList": {
-            "background": "Journal:JournalBackground",
-            "background-scale-mode": "scale_fill",
-            "margin": {
-                "top": 20,
-                "bottom": 20,
-                "left": 20,
-                "right": 20
-            }
-        }
-    },
-    "elements": {
-        "UIList": {
-            "background": "",
-            "margin": {
-                "top": 0,
-                "bottom": 0,
-                "left": 0,
-                "right": 0
-            },
-            "parts": {
-                "item": {
-                    "text-align-horizontal": "left",
-                    "text-color": "000000ff",
-                    "text-shadowed": "false",
-                    "background": "",
+            "elements": {
+                "ScrollableArea": {
+                    "background": "Journal:JournalBackground",
+                    "background-scale-mode": "scale_fill",
                     "margin": {
-                        "top": 0,
-                        "bottom": 0,
-                        "left": 0,
-                        "right": 0
+                        "top": 20,
+                        "bottom": 20,
+                        "left": 20,
+                        "right": 20
+                    }
+                },
+                "UIList": {
+                    "parts": {
+                        "item": {
+                            "text-align-horizontal": "left",
+                            "text-color": "000000ff",
+                            "text-shadowed": "false",
+                            "background": ""
+                        }
                     }
                 }
             }
