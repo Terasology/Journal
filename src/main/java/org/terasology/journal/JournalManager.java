@@ -28,11 +28,7 @@ import java.util.Map;
  * @author Marcin Sciesinski <marcins78@gmail.com>
  */
 public interface JournalManager {
-    void registerJournalChapter(String chapterId, Texture icon, String name);
-
-    void registerJournalEntry(String chapterId, String entryId, String text);
-
-    void registerJournalEntry(String chapterId, String entryId, List<JournalEntryPart> journalEntryParts);
+    void registerJournalChapter(String chapterId, Texture icon, String name, JournalChapterHandler journalChapterHandler);
 
     boolean hasEntry(EntityRef player, String chapterId, String entryId);
 
