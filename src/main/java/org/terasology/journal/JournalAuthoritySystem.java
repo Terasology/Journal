@@ -24,6 +24,7 @@ import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.registry.In;
 
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -68,5 +69,30 @@ public class JournalAuthoritySystem implements ComponentSystem {
 
         // Notify the client
         character.send(new NewJournalEntryDiscoveredEvent(chapterId, event.getEntryId()));
+    }
+
+    @ReceiveEvent(components = {JournalAccessComponent.class})
+    public void journalEntryRemove(RemoveJournalEntry event, EntityRef character) {
+        // Apply the changes to the server object
+        JournalAccessComponent journalAccess = character.getComponent(JournalAccessComponent.class);
+        String chapterId = event.getChapterId();
+        List<String> entries = journalAccess.discoveredJournalEntries.get(chapterId);
+        if (entries == null) {
+            entries = new LinkedList<>();
+            journalAccess.discoveredJournalEntries.put(chapterId, entries);
+        }
+
+        boolean changed = false;
+        Iterator<String> entryIterator = entries.iterator();
+        while (entryIterator.hasNext()) {
+            String entry = entryIterator.next();
+            if (entry.endsWith("|" + event.getEntryId())) {
+                entryIterator.remove();
+                changed = true;
+            }
+        }
+        if (changed) {
+            character.saveComponent(journalAccess);
+        }
     }
 }
