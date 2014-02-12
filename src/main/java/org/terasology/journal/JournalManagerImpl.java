@@ -16,7 +16,7 @@
 package org.terasology.journal;
 
 import org.terasology.entitySystem.entity.EntityRef;
-import org.terasology.entitySystem.systems.ComponentSystem;
+import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.registry.Share;
 import org.terasology.rendering.assets.texture.Texture;
@@ -32,17 +32,9 @@ import java.util.Map;
  */
 @RegisterSystem
 @Share(JournalManager.class)
-public class JournalManagerImpl implements ComponentSystem, JournalManager {
+public class JournalManagerImpl extends BaseComponentSystem implements JournalManager {
     private Map<String, JournalChapter> journalChapters = new LinkedHashMap<>();
     private Map<String, JournalChapterHandler> journalChapterHandlers = new HashMap<>();
-
-    @Override
-    public void initialise() {
-    }
-
-    @Override
-    public void shutdown() {
-    }
 
     @Override
     public void registerJournalChapter(String chapterId, Texture icon, String name, JournalChapterHandler journalChapterHandler) {

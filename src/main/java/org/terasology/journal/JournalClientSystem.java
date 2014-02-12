@@ -18,6 +18,7 @@ package org.terasology.journal;
 import org.terasology.engine.Time;
 import org.terasology.entitySystem.entity.EntityRef;
 import org.terasology.entitySystem.event.ReceiveEvent;
+import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.entitySystem.systems.UpdateSubscriberSystem;
@@ -31,7 +32,7 @@ import org.terasology.rendering.nui.NUIManager;
  * @author Marcin Sciesinski <marcins78@gmail.com>
  */
 @RegisterSystem(RegisterMode.CLIENT)
-public class JournalClientSystem implements UpdateSubscriberSystem {
+public class JournalClientSystem extends BaseComponentSystem implements UpdateSubscriberSystem {
     @In
     private NUIManager nuiManager;
     @In
@@ -41,14 +42,6 @@ public class JournalClientSystem implements UpdateSubscriberSystem {
     private final static long DIM_ALPHA_TIME = 1500;
 
     private long lastNotificationReceived;
-
-    @Override
-    public void initialise() {
-    }
-
-    @Override
-    public void shutdown() {
-    }
 
     @Override
     public void update(float delta) {
