@@ -51,9 +51,4 @@ public class NewEntryWindow extends CoreScreenLayer {
     public boolean isReleasingMouse() {
         return false;
     }
-
-    @Override
-    public boolean isEscapeToCloseAllowed() {
-        return false;
-    }
 }
