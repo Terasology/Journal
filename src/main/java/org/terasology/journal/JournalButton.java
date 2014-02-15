@@ -24,7 +24,7 @@ import org.terasology.input.RegisterBindButton;
 /**
  * @author Marcin Sciesinski <marcins78@gmail.com>
  */
-@RegisterBindButton(id = "openJournal", description = "Open journal")
+@RegisterBindButton(id = "openJournal", description = "Open journal", category = "interaction")
 @DefaultBinding(type = InputType.KEY, id = Keyboard.KEY_J)
 public class JournalButton extends BindButtonEvent {
 }
