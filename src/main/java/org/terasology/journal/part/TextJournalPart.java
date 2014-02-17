@@ -38,7 +38,7 @@ public class TextJournalPart implements JournalManager.JournalEntryPart {
     }
 
     @Override
-    public Vector2i getPreferredSize(Canvas canvas) {
+    public Vector2i getPreferredSize(Canvas canvas, long date) {
         Font font = canvas.getCurrentStyle().getFont();
 
         List<String> lines = TextLineBuilder.getLines(font, text, canvas.size().x);
@@ -46,7 +46,7 @@ public class TextJournalPart implements JournalManager.JournalEntryPart {
     }
 
     @Override
-    public void render(Canvas canvas, Rect2i region) {
+    public void render(Canvas canvas, Rect2i region, long date) {
         canvas.getCurrentStyle().setHorizontalTextAlignment(horizontalAlign);
         canvas.drawText(text, region);
     }

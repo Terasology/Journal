@@ -47,8 +47,8 @@ public interface JournalManager {
     }
 
     public interface JournalEntryPart {
-        Vector2i getPreferredSize(Canvas canvas);
+        Vector2i getPreferredSize(Canvas canvas, long date);
 
-        void render(Canvas canvas, Rect2i region);
+        void render(Canvas canvas, Rect2i region, long date);
     }
 }

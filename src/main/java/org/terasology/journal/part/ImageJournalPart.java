@@ -35,12 +35,12 @@ public class ImageJournalPart implements JournalManager.JournalEntryPart {
     }
 
     @Override
-    public Vector2i getPreferredSize(Canvas canvas) {
+    public Vector2i getPreferredSize(Canvas canvas, long date) {
         return texture.size();
     }
 
     @Override
-    public void render(Canvas canvas, Rect2i region) {
+    public void render(Canvas canvas, Rect2i region, long date) {
         int x = horizontalAlign.getOffset(texture.getWidth(), region.width());
         canvas.drawTexture(texture, Rect2i.createFromMinAndMax(region.minX() + x, region.minY(), region.minX() + x + texture.getWidth(), region.maxY()));
     }

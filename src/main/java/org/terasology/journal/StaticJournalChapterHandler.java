@@ -16,8 +16,10 @@
 package org.terasology.journal;
 
 import org.terasology.journal.part.TextJournalPart;
+import org.terasology.journal.part.TimestampJournalPart;
 import org.terasology.rendering.nui.HorizontalAlign;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -26,8 +28,12 @@ import java.util.Map;
 public class StaticJournalChapterHandler implements JournalChapterHandler {
     private Map<String, List<JournalManager.JournalEntryPart>> journalEntries = new HashMap<>();
 
-    public void registerJournalEntry(String entryId, String text) {
-        journalEntries.put(entryId, Collections.<JournalManager.JournalEntryPart>singletonList(new TextJournalPart(text, HorizontalAlign.LEFT)));
+    public void registerJournalEntry(String entryId, boolean timestamp, String text) {
+        if (timestamp) {
+            journalEntries.put(entryId, Arrays.asList(new TimestampJournalPart(), new TextJournalPart(text, HorizontalAlign.LEFT)));
+        } else {
+            journalEntries.put(entryId, Collections.<JournalManager.JournalEntryPart>singletonList(new TextJournalPart(text, HorizontalAlign.LEFT)));
+        }
     }
 
     public void registerJournalEntry(String entryId, List<JournalManager.JournalEntryPart> journalEntryParts) {
