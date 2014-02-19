@@ -32,6 +32,10 @@ public class TextJournalPart implements JournalManager.JournalEntryPart {
     private String text;
     private HorizontalAlign horizontalAlign;
 
+    public TextJournalPart(String text) {
+        this(text, HorizontalAlign.LEFT);
+    }
+
     public TextJournalPart(String text, HorizontalAlign horizontalAlign) {
         this.text = text;
         this.horizontalAlign = horizontalAlign;
