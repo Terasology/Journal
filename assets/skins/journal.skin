@@ -1,5 +1,14 @@
 {
     "inherit": "default",
+    "elements": {
+        "ItemIcon": {
+            "fixed-width": 0,
+            "fixed-height": 0,
+            "texture-scale-mode": "scale fit",
+            "text-align-horizontal": "right",
+            "text-align-vertical": "bottom"
+        }
+    },
     "families": {
         "journalList": {
             "elements": {
