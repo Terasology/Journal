@@ -15,44 +15,40 @@
  */
 package org.terasology.journal.part;
 
+import org.terasology.asset.Assets;
 import org.terasology.journal.JournalManager;
 import org.terasology.math.Rect2i;
 import org.terasology.math.Vector2i;
 import org.terasology.rendering.assets.font.Font;
 import org.terasology.rendering.nui.Canvas;
+import org.terasology.rendering.nui.Color;
 import org.terasology.rendering.nui.HorizontalAlign;
 import org.terasology.rendering.nui.TextLineBuilder;
+import org.terasology.rendering.nui.VerticalAlign;
 
 import java.util.List;
 
 /**
  * @author Marcin Sciesinski <marcins78@gmail.com>
  */
-public class TextJournalPart implements JournalManager.JournalEntryPart {
+public class TitleJournalPart implements JournalManager.JournalEntryPart {
     private String text;
-    private HorizontalAlign horizontalAlign;
+    private Font font;
 
-    public TextJournalPart(String text) {
-        this(text, HorizontalAlign.LEFT);
-    }
-
-    public TextJournalPart(String text, HorizontalAlign horizontalAlign) {
+    public TitleJournalPart(String text) {
         this.text = text;
-        this.horizontalAlign = horizontalAlign;
+        font = Assets.getFont("Engine:title");
     }
 
     @Override
     public Vector2i getPreferredSize(Canvas canvas, long date) {
-        Font font = canvas.getCurrentStyle().getFont();
-
         List<String> lines = TextLineBuilder.getLines(font, text, canvas.size().x);
-        Vector2i result = font.getSize(lines);
-        return new Vector2i(result.x, result.y + 3);
+        Vector2i size = font.getSize(lines);
+        return new Vector2i(size.x, size.y + 5);
     }
 
     @Override
     public void render(Canvas canvas, Rect2i region, long date) {
-        canvas.getCurrentStyle().setHorizontalTextAlignment(horizontalAlign);
-        canvas.drawText(text, region);
+        canvas.drawTextRaw(text, font, Color.BLACK, region, HorizontalAlign.CENTER, VerticalAlign.MIDDLE);
     }
 }
