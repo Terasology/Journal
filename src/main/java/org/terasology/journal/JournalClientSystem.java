@@ -23,6 +23,7 @@ import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.entitySystem.systems.UpdateSubscriberSystem;
 import org.terasology.input.ButtonState;
+import org.terasology.journal.ui.JournalNUIWindow;
 import org.terasology.journal.ui.NewEntryWindow;
 import org.terasology.network.ClientComponent;
 import org.terasology.registry.In;
@@ -64,6 +65,8 @@ public class JournalClientSystem extends BaseComponentSystem implements UpdateSu
     public void openJournal(JournalButton event, EntityRef character) {
         if (event.getState() == ButtonState.DOWN) {
             nuiManager.toggleScreen("Journal:JournalWindow");
+            JournalNUIWindow window = (JournalNUIWindow) nuiManager.getScreen("Journal:JournalWindow");
+            window.refreshJournal();
         }
     }
 

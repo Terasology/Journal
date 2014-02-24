@@ -54,11 +54,11 @@ public class JournalAuthoritySystem extends BaseComponentSystem {
         List<String> entries = journalAccess.discoveredJournalEntries.get(chapterId);
         if (entries == null) {
             entries = new LinkedList<>();
-            journalAccess.discoveredJournalEntries.put(chapterId, entries);
         } else {
             entries = new LinkedList<>(entries);
-            journalAccess.discoveredJournalEntries.put(chapterId, entries);
         }
+        journalAccess.discoveredJournalEntries.put(chapterId, entries);
+
         entries.add(time.getGameTimeInMs() + "|" + event.getEntryId());
         character.saveComponent(journalAccess);
 

@@ -72,7 +72,10 @@ public class JournalNUIWindow extends CoreScreenLayer {
                         updateJournal();
                     }
                 });
+    }
 
+    public void refreshJournal() {
+        selectedChapter = null;
         updateChapters();
         List<JournalManager.JournalChapter> chapters = chapterList.getList();
         if (chapters.size() > 0) {
