@@ -19,7 +19,7 @@ import org.terasology.entitySystem.entity.EntityRef;
 import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.registry.Share;
-import org.terasology.rendering.assets.texture.Texture;
+import org.terasology.rendering.assets.texture.TextureRegion;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -37,7 +37,7 @@ public class JournalManagerImpl extends BaseComponentSystem implements JournalMa
     private Map<String, JournalChapterHandler> journalChapterHandlers = new HashMap<>();
 
     @Override
-    public void registerJournalChapter(String chapterId, Texture icon, String name, JournalChapterHandler journalChapterHandler) {
+    public void registerJournalChapter(String chapterId, TextureRegion icon, String name, JournalChapterHandler journalChapterHandler) {
         journalChapters.put(chapterId, new JournalChapter(icon, name));
         journalChapterHandlers.put(chapterId, journalChapterHandler);
     }
@@ -106,10 +106,10 @@ public class JournalManagerImpl extends BaseComponentSystem implements JournalMa
     }
 
     private final class JournalChapter implements JournalManager.JournalChapter {
-        private final Texture texture;
+        private final TextureRegion texture;
         private final String name;
 
-        private JournalChapter(Texture texture, String name) {
+        private JournalChapter(TextureRegion texture, String name) {
             this.texture = texture;
             this.name = name;
         }
@@ -120,7 +120,7 @@ public class JournalManagerImpl extends BaseComponentSystem implements JournalMa
         }
 
         @Override
-        public Texture getTexture() {
+        public TextureRegion getTexture() {
             return texture;
         }
     }
