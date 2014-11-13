@@ -46,10 +46,10 @@ public class JournalAuthoritySystem extends BaseComponentSystem {
         }
     }
 
-    @ReceiveEvent(components = {JournalAccessComponent.class})
-    public void newJournalEntryDiscovered(DiscoveredNewJournalEntry event, EntityRef character) {
+    @ReceiveEvent
+    public void newJournalEntryDiscovered(DiscoveredNewJournalEntry event, EntityRef character,
+                                          JournalAccessComponent journalAccess) {
         // Apply the changes to the server object
-        JournalAccessComponent journalAccess = character.getComponent(JournalAccessComponent.class);
         String chapterId = event.getChapterId();
         List<String> entries = journalAccess.discoveredJournalEntries.get(chapterId);
         if (entries == null) {
@@ -66,10 +66,10 @@ public class JournalAuthoritySystem extends BaseComponentSystem {
         character.send(new NewJournalEntryDiscoveredEvent(chapterId, event.getEntryId()));
     }
 
-    @ReceiveEvent(components = {JournalAccessComponent.class})
-    public void journalEntryRemove(RemoveJournalEntry event, EntityRef character) {
+    @ReceiveEvent
+    public void journalEntryRemove(RemoveJournalEntry event, EntityRef character,
+                                   JournalAccessComponent journalAccess) {
         // Apply the changes to the server object
-        JournalAccessComponent journalAccess = character.getComponent(JournalAccessComponent.class);
         String chapterId = event.getChapterId();
         List<String> entries = journalAccess.discoveredJournalEntries.get(chapterId);
         if (entries == null) {

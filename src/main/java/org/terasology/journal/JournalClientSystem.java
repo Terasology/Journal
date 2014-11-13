@@ -61,8 +61,9 @@ public class JournalClientSystem extends BaseComponentSystem implements UpdateSu
         }
     }
 
-    @ReceiveEvent(components = ClientComponent.class)
-    public void openJournal(JournalButton event, EntityRef character) {
+    @ReceiveEvent
+    public void openJournal(JournalButton event, EntityRef character,
+                            ClientComponent clientComponent) {
         if (event.getState() == ButtonState.DOWN) {
             nuiManager.toggleScreen("Journal:JournalWindow");
             JournalNUIWindow window = (JournalNUIWindow) nuiManager.getScreen("Journal:JournalWindow");
