@@ -18,7 +18,7 @@ package org.terasology.journal.part;
 import org.terasology.journal.JournalManager;
 import org.terasology.math.Rect2i;
 import org.terasology.math.Vector2i;
-import org.terasology.rendering.assets.texture.Texture;
+import org.terasology.rendering.assets.texture.TextureRegion;
 import org.terasology.rendering.nui.Canvas;
 import org.terasology.rendering.nui.HorizontalAlign;
 
@@ -26,10 +26,10 @@ import org.terasology.rendering.nui.HorizontalAlign;
  * @author Marcin Sciesinski <marcins78@gmail.com>
  */
 public class ImageJournalPart implements JournalManager.JournalEntryPart {
-    private Texture texture;
+    private TextureRegion texture;
     private HorizontalAlign horizontalAlign;
 
-    public ImageJournalPart(Texture texture, HorizontalAlign horizontalAlign) {
+    public ImageJournalPart(TextureRegion texture, HorizontalAlign horizontalAlign) {
         this.texture = texture;
         this.horizontalAlign = horizontalAlign;
     }
