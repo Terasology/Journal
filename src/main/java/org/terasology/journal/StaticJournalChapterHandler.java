@@ -50,11 +50,7 @@ public class StaticJournalChapterHandler implements JournalChapterHandler {
 
     @Override
     public Collection<ParagraphData> resolveJournalEntryParts(String entryId, long date) {
-        return journalEntries.get(entryId).produceParagraphs(date);
-    }
-
-    private interface JournalEntryProducer {
-        List<ParagraphData> produceParagraphs(long date);
+        return journalEntries.get(entryId).produceParagraph(date);
     }
 
     private final class EntryPartListProducer implements JournalEntryProducer {
@@ -65,7 +61,7 @@ public class StaticJournalChapterHandler implements JournalChapterHandler {
         }
 
         @Override
-        public List<ParagraphData> produceParagraphs(long date) {
+        public List<ParagraphData> produceParagraph(long date) {
             List<ParagraphData> result = new LinkedList<>();
             for (JournalManager.JournalEntryPart journalEntryPart : journalEntryParts) {
                 result.add(new ParagraphDataAdapter(journalEntryPart, date));
