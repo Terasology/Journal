@@ -19,6 +19,6 @@ import org.terasology.rendering.nui.widgets.browser.data.ParagraphData;
 
 import java.util.Collection;
 
-public interface JournalChapterHandler {
-    Collection<ParagraphData> resolveJournalEntryParts(String entryId, long date);
+public interface JournalEntryProducer {
+    Collection<ParagraphData> produceParagraph(long date);
 }

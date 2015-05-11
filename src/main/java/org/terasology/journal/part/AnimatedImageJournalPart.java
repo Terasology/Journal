@@ -48,7 +48,7 @@ public class AnimatedImageJournalPart implements JournalManager.JournalEntryPart
     }
 
     @Override
-    public Vector2i getPreferredSize(Canvas canvas, long date) {
+    public Vector2i getPreferredSize(long date) {
         return size;
     }
 

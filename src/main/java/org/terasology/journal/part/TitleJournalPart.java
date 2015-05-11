@@ -41,7 +41,9 @@ public class TitleJournalPart implements JournalManager.JournalEntryPart {
     }
 
     @Override
-    public Vector2i getPreferredSize(Canvas canvas, long date) {
+    public Vector2i getPreferredSize(long date) {
+        Canvas canvas = null;
+
         List<String> lines = TextLineBuilder.getLines(font, text, canvas.size().x);
         Vector2i size = font.getSize(lines);
         return new Vector2i(size.x, size.y + 5);

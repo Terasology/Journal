@@ -33,7 +33,8 @@ public class TimestampJournalPart implements JournalManager.JournalEntryPart {
     private int indentBelowDate = 10;
 
     @Override
-    public Vector2i getPreferredSize(Canvas canvas, long date) {
+    public Vector2i getPreferredSize(long date) {
+        Canvas canvas = null;
         Font font = canvas.getCurrentStyle().getFont();
 
         List<String> dateLines = TextLineBuilder.getLines(font, getJournalEntryDate(date), canvas.size().x);

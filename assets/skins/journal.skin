@@ -22,15 +22,11 @@
                         "right": 20
                     }
                 },
-                "UIList": {
-                    "parts": {
-                        "item": {
-                            "text-align-horizontal": "left",
-                            "text-color": "000000ff",
-                            "text-shadowed": "false",
-                            "background": ""
-                        }
-                    }
+                "BrowserWidget": {
+                    "text-align-horizontal": "left",
+                    "text-color": "000000ff",
+                    "text-shadowed": "false",
+                    "background": ""
                 }
             }
         },

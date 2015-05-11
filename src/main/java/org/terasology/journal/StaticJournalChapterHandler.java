@@ -17,31 +17,96 @@ package org.terasology.journal;
 
 import org.terasology.journal.part.TextJournalPart;
 import org.terasology.journal.part.TimestampJournalPart;
+import org.terasology.math.Rect2i;
+import org.terasology.rendering.nui.Canvas;
 import org.terasology.rendering.nui.HorizontalAlign;
+import org.terasology.rendering.nui.widgets.browser.data.ParagraphData;
+import org.terasology.rendering.nui.widgets.browser.ui.ParagraphRenderable;
+import org.terasology.rendering.nui.widgets.browser.ui.style.ParagraphRenderStyle;
+import org.terasology.rendering.nui.widgets.browser.ui.style.TextRenderStyle;
 
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+@Deprecated
 public class StaticJournalChapterHandler implements JournalChapterHandler {
-    private Map<String, List<JournalManager.JournalEntryPart>> journalEntries = new HashMap<>();
+    private Map<String, JournalEntryProducer> journalEntries = new HashMap<>();
 
     public void registerJournalEntry(String entryId, boolean timestamp, String text) {
         if (timestamp) {
-            journalEntries.put(entryId, Arrays.asList(new TimestampJournalPart(), new TextJournalPart(text, HorizontalAlign.LEFT)));
+            journalEntries.put(entryId, new EntryPartListProducer(Arrays.asList(new TimestampJournalPart(), new TextJournalPart(text, HorizontalAlign.LEFT))));
         } else {
-            journalEntries.put(entryId, Collections.<JournalManager.JournalEntryPart>singletonList(new TextJournalPart(text, HorizontalAlign.LEFT)));
+            journalEntries.put(entryId, new EntryPartListProducer(Arrays.asList(new TextJournalPart(text, HorizontalAlign.LEFT))));
         }
     }
 
     public void registerJournalEntry(String entryId, List<JournalManager.JournalEntryPart> journalEntryParts) {
-        journalEntries.put(entryId, journalEntryParts);
+        journalEntries.put(entryId, new EntryPartListProducer(journalEntryParts));
     }
 
     @Override
-    public List<JournalManager.JournalEntryPart> resolveJournalEntryParts(String entryId) {
-        return journalEntries.get(entryId);
+    public Collection<ParagraphData> resolveJournalEntryParts(String entryId, long date) {
+        return journalEntries.get(entryId).produceParagraphs(date);
+    }
+
+    private interface JournalEntryProducer {
+        List<ParagraphData> produceParagraphs(long date);
+    }
+
+    private final class EntryPartListProducer implements JournalEntryProducer {
+        private List<JournalManager.JournalEntryPart> journalEntryParts;
+
+        private EntryPartListProducer(List<JournalManager.JournalEntryPart> journalEntryParts) {
+            this.journalEntryParts = journalEntryParts;
+        }
+
+        @Override
+        public List<ParagraphData> produceParagraphs(long date) {
+            List<ParagraphData> result = new LinkedList<>();
+            for (JournalManager.JournalEntryPart journalEntryPart : journalEntryParts) {
+                result.add(new ParagraphDataAdapter(journalEntryPart, date));
+            }
+
+            return result;
+        }
+    }
+
+    private final class ParagraphDataAdapter implements ParagraphData {
+        private JournalManager.JournalEntryPart journalEntryPart;
+        private long date;
+
+        private ParagraphDataAdapter(JournalManager.JournalEntryPart journalEntryPart, long date) {
+            this.journalEntryPart = journalEntryPart;
+            this.date = date;
+        }
+
+        @Override
+        public ParagraphRenderStyle getParagraphRenderStyle() {
+            return null;
+        }
+
+        @Override
+        public ParagraphRenderable getParagraphContents() {
+            return new ParagraphRenderable() {
+                @Override
+                public void render(Canvas canvas, Rect2i region, TextRenderStyle defaultStyle, HorizontalAlign horizontalAlign, HyperlinkRegister hyperlinkRegister) {
+                    journalEntryPart.render(canvas, region, date);
+                }
+
+                @Override
+                public int getPreferredHeight(TextRenderStyle defaultStyle, int width) {
+                    return journalEntryPart.getPreferredSize(date).y;
+                }
+
+                @Override
+                public int getMinWidth(TextRenderStyle defaultStyle) {
+                    return journalEntryPart.getPreferredSize(date).x;
+                }
+            };
+        }
     }
 }

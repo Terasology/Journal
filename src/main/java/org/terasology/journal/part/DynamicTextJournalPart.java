@@ -40,7 +40,8 @@ public class DynamicTextJournalPart implements JournalManager.JournalEntryPart {
     }
 
     @Override
-    public Vector2i getPreferredSize(Canvas canvas, long date) {
+    public Vector2i getPreferredSize(long date) {
+        Canvas canvas = null;
         Font font = canvas.getCurrentStyle().getFont();
 
         List<String> lines = TextLineBuilder.getLines(font, text.get(), canvas.size().x);

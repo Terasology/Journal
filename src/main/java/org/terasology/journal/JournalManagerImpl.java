@@ -20,10 +20,10 @@ import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.registry.Share;
 import org.terasology.rendering.assets.texture.TextureRegion;
+import org.terasology.rendering.nui.widgets.browser.data.DocumentData;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -37,9 +37,9 @@ public class JournalManagerImpl extends BaseComponentSystem implements JournalMa
     private Map<String, JournalChapterHandler> journalChapterHandlers = new HashMap<>();
 
     @Override
-    public void registerJournalChapter(String chapterId, TextureRegion icon, String name, JournalChapterHandler journalChapterHandler) {
+    public void registerJournalChapter(String chapterId, TextureRegion icon, String name, JournalChapterHandler browserJournalChapterHandler) {
         journalChapters.put(chapterId, new JournalChapter(icon, name));
-        journalChapterHandlers.put(chapterId, journalChapterHandler);
+        journalChapterHandlers.put(chapterId, browserJournalChapterHandler);
     }
 
     @Override
@@ -60,22 +60,22 @@ public class JournalManagerImpl extends BaseComponentSystem implements JournalMa
     }
 
     @Override
-    public Map<JournalManager.JournalChapter, List<JournalManager.JournalEntry>> getPlayerEntries(EntityRef player) {
-        Map<JournalManager.JournalChapter, List<JournalManager.JournalEntry>> result = new LinkedHashMap<>();
+    public Map<JournalManager.JournalChapter, DocumentData> getPlayerEntries(EntityRef player) {
+        Map<JournalManager.JournalChapter, DocumentData> result = new LinkedHashMap<>();
         for (Map.Entry<String, JournalChapter> chapterEntry : journalChapters.entrySet()) {
             JournalAccessComponent journal = player.getComponent(JournalAccessComponent.class);
             Map<String, List<String>> discoveredEntries = journal.discoveredJournalEntries;
             String chapterId = chapterEntry.getKey();
             List<String> discoveredChapterEntries = discoveredEntries.get(chapterId);
             if (discoveredChapterEntries != null) {
-                List<JournalManager.JournalEntry> chapterEntries = new LinkedList<>();
+                DefaultDocumentData chapterEntries = new DefaultDocumentData(null);
 
                 JournalChapterHandler journalChapterHandler = journalChapterHandlers.get(chapterId);
                 for (String discoveredChapterEntryId : discoveredChapterEntries) {
                     String[] entrySplit = discoveredChapterEntryId.split("\\|", 2);
                     long date = Long.parseLong(entrySplit[0]);
                     String id = entrySplit[1];
-                    chapterEntries.add(new JournalEntry(date, journalChapterHandler.resolveJournalEntryParts(id)));
+                    chapterEntries.addParagraphs(journalChapterHandler.resolveJournalEntryParts(id, date));
                 }
 
                 result.put(chapterEntry.getValue(), chapterEntries);
@@ -83,26 +83,6 @@ public class JournalManagerImpl extends BaseComponentSystem implements JournalMa
         }
 
         return result;
-    }
-
-    private final class JournalEntry implements JournalManager.JournalEntry {
-        private final long date;
-        private final List<JournalEntryPart> parts;
-
-        private JournalEntry(long date, List<JournalEntryPart> parts) {
-            this.date = date;
-            this.parts = parts;
-        }
-
-        @Override
-        public long getDate() {
-            return date;
-        }
-
-        @Override
-        public List<JournalEntryPart> getParts() {
-            return parts;
-        }
     }
 
     private final class JournalChapter implements JournalManager.JournalChapter {

@@ -8,7 +8,7 @@
                 "type": "ScrollableArea",
                 "id": "entries",
                 "content": {
-                    "type": "UIList",
+                    "type": "BrowserWidget",
                     "id": "journalList"
                 },
                 "family": "journalList",

@@ -20,19 +20,19 @@ import org.terasology.math.Rect2i;
 import org.terasology.math.Vector2i;
 import org.terasology.rendering.assets.texture.TextureRegion;
 import org.terasology.rendering.nui.Canvas;
+import org.terasology.rendering.nui.widgets.browser.data.DocumentData;
 
-import java.util.List;
 import java.util.Map;
 
 /**
  * @author Marcin Sciesinski <marcins78@gmail.com>
  */
 public interface JournalManager {
-    void registerJournalChapter(String chapterId, TextureRegion icon, String name, JournalChapterHandler journalChapterHandler);
+    void registerJournalChapter(String chapterId, TextureRegion icon, String name, JournalChapterHandler browserJournalChapterHandler);
 
     boolean hasEntry(EntityRef player, String chapterId, String entryId);
 
-    Map<JournalChapter, List<JournalEntry>> getPlayerEntries(EntityRef player);
+    Map<JournalChapter, DocumentData> getPlayerEntries(EntityRef player);
 
     public interface JournalChapter {
         String getChapterName();
@@ -40,14 +40,8 @@ public interface JournalManager {
         TextureRegion getTexture();
     }
 
-    public interface JournalEntry {
-        long getDate();
-
-        List<JournalEntryPart> getParts();
-    }
-
     public interface JournalEntryPart {
-        Vector2i getPreferredSize(Canvas canvas, long date);
+        Vector2i getPreferredSize(long date);
 
         void render(Canvas canvas, Rect2i region, long date);
     }
