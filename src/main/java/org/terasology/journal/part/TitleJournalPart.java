@@ -37,7 +37,7 @@ public class TitleJournalPart implements JournalManager.JournalEntryPart {
 
     public TitleJournalPart(String text) {
         this.text = text;
-        font = Assets.getFont("Engine:title");
+        font = Assets.getFont("Engine:title").get();
     }
 
     @Override
