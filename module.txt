@@ -1,6 +1,6 @@
 {
     "id" : "Journal",
-    "version" : "0.1.0",
+    "version" : "0.1.1-SNAPSHOT",
     "author" : "Marcin Sciesinski <marcins78@gmail.com>",
     "displayName" : "Journal",
     "description" : "Allows displaying story to the player, tracking progress in mods or game in general",
