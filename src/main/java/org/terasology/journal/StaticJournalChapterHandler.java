@@ -18,12 +18,13 @@ package org.terasology.journal;
 import org.terasology.journal.part.TextJournalPart;
 import org.terasology.journal.part.TimestampJournalPart;
 import org.terasology.math.Rect2i;
+import org.terasology.math.Vector2i;
 import org.terasology.rendering.nui.Canvas;
 import org.terasology.rendering.nui.HorizontalAlign;
 import org.terasology.rendering.nui.widgets.browser.data.ParagraphData;
+import org.terasology.rendering.nui.widgets.browser.data.basic.flow.ContainerRenderSpace;
 import org.terasology.rendering.nui.widgets.browser.ui.ParagraphRenderable;
 import org.terasology.rendering.nui.widgets.browser.ui.style.ParagraphRenderStyle;
-import org.terasology.rendering.nui.widgets.browser.ui.style.TextRenderStyle;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -89,17 +90,20 @@ public class StaticJournalChapterHandler implements JournalChapterHandler {
         public ParagraphRenderable getParagraphContents() {
             return new ParagraphRenderable() {
                 @Override
-                public void render(Canvas canvas, Rect2i region, TextRenderStyle defaultStyle, HorizontalAlign horizontalAlign, HyperlinkRegister hyperlinkRegister) {
-                    journalEntryPart.render(canvas, region, date);
+                public void renderContents(Canvas canvas, Vector2i startPos, ContainerRenderSpace containerRenderSpace, int leftIndent, int rightIndent,
+                                           ParagraphRenderStyle defaultStyle, HorizontalAlign horizontalAlign, HyperlinkRegister hyperlinkRegister) {
+                    int width = containerRenderSpace.getWidthForVerticalPosition(startPos.getY());
+                    int preferredHeight = getPreferredContentsHeight(defaultStyle, startPos.y, containerRenderSpace, leftIndent + rightIndent);
+                    journalEntryPart.render(canvas, Rect2i.createFromMinAndSize(startPos.x + leftIndent, startPos.y, width, preferredHeight), date);
                 }
 
                 @Override
-                public int getPreferredHeight(TextRenderStyle defaultStyle, int width) {
+                public int getPreferredContentsHeight(ParagraphRenderStyle defaultStyle, int yStart, ContainerRenderSpace containerRenderSpace, int sideIndents) {
                     return journalEntryPart.getPreferredSize(date).y;
                 }
 
                 @Override
-                public int getMinWidth(TextRenderStyle defaultStyle) {
+                public int getContentsMinWidth(ParagraphRenderStyle defaultStyle) {
                     return journalEntryPart.getPreferredSize(date).x;
                 }
             };
