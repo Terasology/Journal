@@ -17,8 +17,8 @@ package org.terasology.journal.part;
 
 import org.terasology.engine.Time;
 import org.terasology.journal.JournalManager;
-import org.terasology.math.Rect2i;
-import org.terasology.math.Vector2i;
+import org.terasology.math.geom.Rect2i;
+import org.terasology.math.geom.Vector2i;
 import org.terasology.registry.CoreRegistry;
 import org.terasology.rendering.assets.texture.Texture;
 import org.terasology.rendering.nui.Canvas;
