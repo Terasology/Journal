@@ -59,7 +59,7 @@ public class JournalAuthoritySystem extends BaseComponentSystem {
         }
         journalAccess.discoveredJournalEntries.put(chapterId, entries);
 
-        entries.add(time.getGameTimeInMs() + "|" + event.getEntryId());
+        entries.add(time.getGameTimeInMs() + "|" + event.getEntryId() + "|" + "unread");
         character.saveComponent(journalAccess);
 
         // Notify the client

@@ -72,10 +72,15 @@ public class JournalManagerImpl extends BaseComponentSystem implements JournalMa
 
                 JournalChapterHandler journalChapterHandler = journalChapterHandlers.get(chapterId);
                 for (String discoveredChapterEntryId : discoveredChapterEntries) {
-                    String[] entrySplit = discoveredChapterEntryId.split("\\|", 2);
+                    String[] entrySplit = discoveredChapterEntryId.split("\\|", 3);
                     long date = Long.parseLong(entrySplit[0]);
                     String id = entrySplit[1];
-                    chapterEntries.addParagraphs(journalChapterHandler.resolveJournalEntryParts(id, date));
+                    String status = entrySplit[2];
+                    if (status.equals("read")) {
+                        chapterEntries.addReadParagraphs(journalChapterHandler.resolveJournalEntryParts(id, date));
+                    } else {
+                        chapterEntries.addUnreadParagraphs(journalChapterHandler.resolveJournalEntryParts(id, date));
+                    }
                 }
 
                 result.put(chapterEntry.getValue(), chapterEntries);
