@@ -84,7 +84,7 @@ public class JournalAuthoritySystem extends BaseComponentSystem {
         Iterator<String> entryIterator = entries.iterator();
         while (entryIterator.hasNext()) {
             String entry = entryIterator.next();
-            if (entry.endsWith("|" + event.getEntryId())) {
+            if (entry.contains("|" + event.getEntryId())) {
                 entryIterator.remove();
                 changed = true;
             }

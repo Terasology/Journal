@@ -38,7 +38,7 @@ public class JournalManagerImpl extends BaseComponentSystem implements JournalMa
 
     @Override
     public void registerJournalChapter(String chapterId, TextureRegion icon, String name, JournalChapterHandler browserJournalChapterHandler) {
-        journalChapters.put(chapterId, new JournalChapter(icon, name));
+        journalChapters.put(chapterId, new JournalChapter(icon, name, chapterId));
         journalChapterHandlers.put(chapterId, browserJournalChapterHandler);
     }
 
@@ -93,15 +93,22 @@ public class JournalManagerImpl extends BaseComponentSystem implements JournalMa
     private final class JournalChapter implements JournalManager.JournalChapter {
         private final TextureRegion texture;
         private final String name;
+        private final String chapterId;
 
-        private JournalChapter(TextureRegion texture, String name) {
+        private JournalChapter(TextureRegion texture, String name, String chapterId) {
             this.texture = texture;
             this.name = name;
+            this.chapterId = chapterId;
         }
 
         @Override
         public String getChapterName() {
             return name;
+        }
+
+        @Override
+        public String getChapterId() {
+            return chapterId;
         }
 
         @Override

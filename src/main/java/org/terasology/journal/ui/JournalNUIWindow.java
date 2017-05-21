@@ -16,12 +16,12 @@
 package org.terasology.journal.ui;
 
 import org.terasology.entitySystem.entity.EntityRef;
+import org.terasology.journal.JournalAccessComponent;
 import org.terasology.journal.JournalManager;
 import org.terasology.logic.players.LocalPlayer;
 import org.terasology.registry.CoreRegistry;
 import org.terasology.rendering.nui.CoreScreenLayer;
 import org.terasology.rendering.nui.UIWidget;
-import org.terasology.rendering.nui.databinding.Binding;
 import org.terasology.rendering.nui.layouts.ScrollableArea;
 import org.terasology.rendering.nui.widgets.ItemActivateEventListener;
 import org.terasology.rendering.nui.widgets.UIList;
@@ -38,9 +38,7 @@ import java.util.Map;
 public class JournalNUIWindow extends CoreScreenLayer {
     private BrowserWidget journalList;
     private UIList<JournalManager.JournalChapter> chapterList;
-
     private JournalChapterRenderer chapterRenderer = new JournalChapterRenderer();
-
     private JournalManager.JournalChapter selectedChapter;
 
     @Override
@@ -100,5 +98,14 @@ public class JournalNUIWindow extends CoreScreenLayer {
         Map<JournalManager.JournalChapter, DocumentData> playerEntries = journalManager.getPlayerEntries(playerEntity);
 
         journalList.navigateTo(playerEntries.get(selectedChapter));
+        JournalAccessComponent journal = playerEntity.getComponent(JournalAccessComponent.class);
+        Map<String, List<String>> discoveredEntries = journal.discoveredJournalEntries;
+        List<String> discoveredChapterEntries = discoveredEntries.get(selectedChapter.getChapterId());
+        List<String> updatedChapterEntries = new LinkedList<>();
+        for (String discoveredChapterEntryId : discoveredChapterEntries) {
+            String[] entrySplit = discoveredChapterEntryId.split("\\|", 3);
+            updatedChapterEntries.add(entrySplit[0] + "|" + entrySplit[1] + "|" + "read");
+        }
+        discoveredEntries.put(selectedChapter.getChapterId(), updatedChapterEntries);
     }
 }

@@ -44,7 +44,7 @@ public class DefaultDocumentData implements DocumentData {
     private ParagraphRenderStyle unreadParagraph = new ParagraphRenderStyle() {
         @Override
         public Color getParagraphBackground() {
-            return Color.GREY;
+            return Color.YELLOW;
         }
         @Override
         public HorizontalAlign getHorizontalAlignment() {
