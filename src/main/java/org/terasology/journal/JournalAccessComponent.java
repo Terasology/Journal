@@ -18,6 +18,7 @@ package org.terasology.journal;
 import org.terasology.entitySystem.Component;
 import org.terasology.network.Replicate;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,5 +27,5 @@ import java.util.Map;
  */
 public class JournalAccessComponent implements Component {
     @Replicate
-    public Map<String, List<String>> discoveredJournalEntries;
+    public Map<String, List<String>> discoveredJournalEntries = new LinkedHashMap<>();
 }

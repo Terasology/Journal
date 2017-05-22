@@ -38,15 +38,6 @@ public class JournalAuthoritySystem extends BaseComponentSystem {
     private Time time;
 
     @ReceiveEvent
-    public void addJournalAccessComponentToPlayers(BeforeEntityCreated event, EntityRef character) {
-        if (event.getPrefab() != null && event.getPrefab().getName().equals("engine:player")) {
-            JournalAccessComponent journalAccess = new JournalAccessComponent();
-            journalAccess.discoveredJournalEntries = new LinkedHashMap<>();
-            event.addComponent(journalAccess);
-        }
-    }
-
-    @ReceiveEvent
     public void newJournalEntryDiscovered(DiscoveredNewJournalEntry event, EntityRef character,
                                           JournalAccessComponent journalAccess) {
         // Apply the changes to the server object
