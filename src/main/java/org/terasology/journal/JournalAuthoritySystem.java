@@ -17,6 +17,7 @@ package org.terasology.journal;
 
 import org.terasology.engine.Time;
 import org.terasology.entitySystem.entity.EntityRef;
+import org.terasology.entitySystem.event.EventPriority;
 import org.terasology.entitySystem.event.ReceiveEvent;
 import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterMode;
@@ -24,6 +25,7 @@ import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.logic.characters.CharacterComponent;
 import org.terasology.logic.health.DoDestroyEvent;
 import org.terasology.logic.players.event.OnPlayerSpawnedEvent;
+import org.terasology.network.ClientComponent;
 import org.terasology.registry.In;
 
 import java.util.Iterator;
@@ -66,20 +68,22 @@ public class JournalAuthoritySystem extends BaseComponentSystem {
 
     @ReceiveEvent
     public void beforeDeath(DoDestroyEvent event, EntityRef player, CharacterComponent characterComponent) {
-        EntityRef client = characterComponent.controller;
         JournalAccessComponent journalAccessComponent = player.getComponent(JournalAccessComponent.class);
         if (journalAccessComponent != null) {
-            client.addOrSaveComponent(journalAccessComponent);
+            EntityRef client = characterComponent.controller;
+            EntityRef clientInfo = client.getComponent(ClientComponent.class).clientInfo;
+            clientInfo.addOrSaveComponent(journalAccessComponent);
         }
     }
 
-    @ReceiveEvent
+    @ReceiveEvent(priority = EventPriority.PRIORITY_HIGH)
     public void onSpawn(OnPlayerSpawnedEvent event, EntityRef player, CharacterComponent characterComponent) {
         EntityRef client = characterComponent.controller;
-        JournalAccessComponent journalAccessComponent = client.getComponent(JournalAccessComponent.class);
+        EntityRef clientInfo = client.getComponent(ClientComponent.class).clientInfo;
+        JournalAccessComponent journalAccessComponent = clientInfo.getComponent(JournalAccessComponent.class);
         if (journalAccessComponent != null) {
             player.addOrSaveComponent(journalAccessComponent);
-            client.removeComponent(JournalAccessComponent.class);
+            clientInfo.removeComponent(JournalAccessComponent.class);
         }
     }
 
