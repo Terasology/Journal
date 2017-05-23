@@ -107,5 +107,6 @@ public class JournalNUIWindow extends CoreScreenLayer {
             updatedChapterEntries.add(entrySplit[0] + "|" + entrySplit[1] + "|" + "read");
         }
         discoveredEntries.put(selectedChapter.getChapterId(), updatedChapterEntries);
+        playerEntity.saveComponent(journal);
     }
 }

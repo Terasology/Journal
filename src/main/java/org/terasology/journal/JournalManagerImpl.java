@@ -49,8 +49,9 @@ public class JournalManagerImpl extends BaseComponentSystem implements JournalMa
         if (entryIds == null) {
             return false;
         }
+
         for (String id : entryIds) {
-            String[] entrySplit = id.split("\\|", 2);
+            String[] entrySplit = id.split("\\|", 3);
             if (entrySplit[1].equals(entryId)) {
                 return true;
             }

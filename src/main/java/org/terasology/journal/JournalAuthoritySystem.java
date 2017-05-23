@@ -17,15 +17,16 @@ package org.terasology.journal;
 
 import org.terasology.engine.Time;
 import org.terasology.entitySystem.entity.EntityRef;
-import org.terasology.entitySystem.entity.lifecycleEvents.BeforeEntityCreated;
 import org.terasology.entitySystem.event.ReceiveEvent;
 import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
+import org.terasology.logic.characters.CharacterComponent;
+import org.terasology.logic.health.DoDestroyEvent;
+import org.terasology.logic.players.event.OnPlayerSpawnedEvent;
 import org.terasology.registry.In;
 
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -36,25 +37,50 @@ import java.util.List;
 public class JournalAuthoritySystem extends BaseComponentSystem {
     @In
     private Time time;
+    @In
+    private JournalManager journalManager;
 
     @ReceiveEvent
     public void newJournalEntryDiscovered(DiscoveredNewJournalEntry event, EntityRef character,
                                           JournalAccessComponent journalAccess) {
         // Apply the changes to the server object
         String chapterId = event.getChapterId();
-        List<String> entries = journalAccess.discoveredJournalEntries.get(chapterId);
-        if (entries == null) {
-            entries = new LinkedList<>();
-        } else {
-            entries = new LinkedList<>(entries);
+        String entryId = event.getEntryId();
+
+        boolean entryAlreadyExists = journalManager.hasEntry(character, chapterId, entryId);
+        if (!entryAlreadyExists) {
+            List<String> entries = journalAccess.discoveredJournalEntries.get(chapterId);
+            if (entries == null) {
+                entries = new LinkedList<>();
+            } else {
+                entries = new LinkedList<>(entries);
+            }
+            entries.add(time.getGameTimeInMs() + "|" + entryId + "|" + "unread");
+            journalAccess.discoveredJournalEntries.put(chapterId, entries);
+            character.saveComponent(journalAccess);
+
+            // Notify the client
+            character.send(new NewJournalEntryDiscoveredEvent(chapterId, entryId));
         }
-        journalAccess.discoveredJournalEntries.put(chapterId, entries);
+    }
 
-        entries.add(time.getGameTimeInMs() + "|" + event.getEntryId() + "|" + "unread");
-        character.saveComponent(journalAccess);
+    @ReceiveEvent
+    public void beforeDeath(DoDestroyEvent event, EntityRef player, CharacterComponent characterComponent) {
+        EntityRef client = characterComponent.controller;
+        JournalAccessComponent journalAccessComponent = player.getComponent(JournalAccessComponent.class);
+        if (journalAccessComponent != null) {
+            client.addOrSaveComponent(journalAccessComponent);
+        }
+    }
 
-        // Notify the client
-        character.send(new NewJournalEntryDiscoveredEvent(chapterId, event.getEntryId()));
+    @ReceiveEvent
+    public void onSpawn(OnPlayerSpawnedEvent event, EntityRef player, CharacterComponent characterComponent) {
+        EntityRef client = characterComponent.controller;
+        JournalAccessComponent journalAccessComponent = client.getComponent(JournalAccessComponent.class);
+        if (journalAccessComponent != null) {
+            player.addOrSaveComponent(journalAccessComponent);
+            client.removeComponent(JournalAccessComponent.class);
+        }
     }
 
     @ReceiveEvent
