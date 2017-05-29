@@ -67,27 +67,6 @@ public class JournalAuthoritySystem extends BaseComponentSystem {
     }
 
     @ReceiveEvent
-    public void beforeDeath(DoDestroyEvent event, EntityRef player, CharacterComponent characterComponent) {
-        JournalAccessComponent journalAccessComponent = player.getComponent(JournalAccessComponent.class);
-        if (journalAccessComponent != null) {
-            EntityRef client = characterComponent.controller;
-            EntityRef clientInfo = client.getComponent(ClientComponent.class).clientInfo;
-            clientInfo.addOrSaveComponent(journalAccessComponent);
-        }
-    }
-
-    @ReceiveEvent(priority = EventPriority.PRIORITY_HIGH)
-    public void onSpawn(OnPlayerSpawnedEvent event, EntityRef player, CharacterComponent characterComponent) {
-        EntityRef client = characterComponent.controller;
-        EntityRef clientInfo = client.getComponent(ClientComponent.class).clientInfo;
-        JournalAccessComponent journalAccessComponent = clientInfo.getComponent(JournalAccessComponent.class);
-        if (journalAccessComponent != null) {
-            player.addOrSaveComponent(journalAccessComponent);
-            clientInfo.removeComponent(JournalAccessComponent.class);
-        }
-    }
-
-    @ReceiveEvent
     public void journalEntryRemove(RemoveJournalEntry event, EntityRef character,
                                    JournalAccessComponent journalAccess) {
         // Apply the changes to the server object
