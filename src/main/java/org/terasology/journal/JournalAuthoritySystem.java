@@ -17,15 +17,18 @@ package org.terasology.journal;
 
 import org.terasology.engine.Time;
 import org.terasology.entitySystem.entity.EntityRef;
-import org.terasology.entitySystem.entity.lifecycleEvents.BeforeEntityCreated;
+import org.terasology.entitySystem.event.EventPriority;
 import org.terasology.entitySystem.event.ReceiveEvent;
 import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterMode;
 import org.terasology.entitySystem.systems.RegisterSystem;
+import org.terasology.logic.characters.CharacterComponent;
+import org.terasology.logic.health.DoDestroyEvent;
+import org.terasology.logic.players.event.OnPlayerSpawnedEvent;
+import org.terasology.network.ClientComponent;
 import org.terasology.registry.In;
 
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -36,34 +39,31 @@ import java.util.List;
 public class JournalAuthoritySystem extends BaseComponentSystem {
     @In
     private Time time;
-
-    @ReceiveEvent
-    public void addJournalAccessComponentToPlayers(BeforeEntityCreated event, EntityRef character) {
-        if (event.getPrefab() != null && event.getPrefab().getName().equals("engine:player")) {
-            JournalAccessComponent journalAccess = new JournalAccessComponent();
-            journalAccess.discoveredJournalEntries = new LinkedHashMap<>();
-            event.addComponent(journalAccess);
-        }
-    }
+    @In
+    private JournalManager journalManager;
 
     @ReceiveEvent
     public void newJournalEntryDiscovered(DiscoveredNewJournalEntry event, EntityRef character,
                                           JournalAccessComponent journalAccess) {
         // Apply the changes to the server object
         String chapterId = event.getChapterId();
-        List<String> entries = journalAccess.discoveredJournalEntries.get(chapterId);
-        if (entries == null) {
-            entries = new LinkedList<>();
-        } else {
-            entries = new LinkedList<>(entries);
+        String entryId = event.getEntryId();
+
+        boolean entryAlreadyExists = journalManager.hasEntry(character, chapterId, entryId);
+        if (!entryAlreadyExists) {
+            List<String> entries = journalAccess.discoveredJournalEntries.get(chapterId);
+            if (entries == null) {
+                entries = new LinkedList<>();
+            } else {
+                entries = new LinkedList<>(entries);
+            }
+            entries.add(time.getGameTimeInMs() + "|" + entryId + "|" + "unread");
+            journalAccess.discoveredJournalEntries.put(chapterId, entries);
+            character.saveComponent(journalAccess);
+
+            // Notify the client
+            character.send(new NewJournalEntryDiscoveredEvent(chapterId, entryId));
         }
-        journalAccess.discoveredJournalEntries.put(chapterId, entries);
-
-        entries.add(time.getGameTimeInMs() + "|" + event.getEntryId());
-        character.saveComponent(journalAccess);
-
-        // Notify the client
-        character.send(new NewJournalEntryDiscoveredEvent(chapterId, event.getEntryId()));
     }
 
     @ReceiveEvent
@@ -84,7 +84,7 @@ public class JournalAuthoritySystem extends BaseComponentSystem {
         Iterator<String> entryIterator = entries.iterator();
         while (entryIterator.hasNext()) {
             String entry = entryIterator.next();
-            if (entry.endsWith("|" + event.getEntryId())) {
+            if (entry.contains("|" + event.getEntryId())) {
                 entryIterator.remove();
                 changed = true;
             }

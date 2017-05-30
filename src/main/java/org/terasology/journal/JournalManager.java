@@ -38,6 +38,8 @@ public interface JournalManager {
         String getChapterName();
 
         TextureRegion getTexture();
+
+        String getChapterId();
     }
 
     public interface JournalEntryPart {
