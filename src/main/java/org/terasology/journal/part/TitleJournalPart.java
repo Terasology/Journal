@@ -28,16 +28,13 @@ import org.terasology.rendering.nui.VerticalAlign;
 
 import java.util.List;
 
-/**
- * @author Marcin Sciesinski <marcins78@gmail.com>
- */
 public class TitleJournalPart implements JournalManager.JournalEntryPart {
     private String text;
     private Font font;
 
     public TitleJournalPart(String text) {
         this.text = text;
-        font = Assets.getFont("Engine:title").get();
+        font = Assets.getFont("NotoSans-Regular-Large").get();
     }
 
     @Override
