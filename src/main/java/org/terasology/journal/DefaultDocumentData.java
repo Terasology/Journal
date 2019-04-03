@@ -36,6 +36,8 @@ public class DefaultDocumentData implements DocumentData {
     private List<DefaultParagraphData> paragraphs = new LinkedList<>();
     private static final Logger logger = LoggerFactory.getLogger(DefaultDocumentData.class);
 
+    private static final Color UNREAD_COLOR = new Color(255,255,225);
+
     public DefaultDocumentData(DocumentRenderStyle documentRenderStyle) {
         this.documentRenderStyle = documentRenderStyle;
     }
@@ -44,7 +46,7 @@ public class DefaultDocumentData implements DocumentData {
     private ParagraphRenderStyle unreadParagraph = new ParagraphRenderStyle() {
         @Override
         public Color getParagraphBackground() {
-            return Color.YELLOW;
+            return UNREAD_COLOR;
         }
         @Override
         public HorizontalAlign getHorizontalAlignment() {
