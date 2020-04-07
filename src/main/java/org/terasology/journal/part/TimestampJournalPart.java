@@ -16,6 +16,7 @@
 package org.terasology.journal.part;
 
 import org.terasology.journal.JournalManager;
+import org.terasology.math.JomlUtil;
 import org.terasology.math.geom.Rect2i;
 import org.terasology.math.geom.Vector2i;
 import org.terasology.rendering.assets.font.Font;
@@ -38,7 +39,7 @@ public class TimestampJournalPart implements JournalManager.JournalEntryPart {
         Font font = canvas.getCurrentStyle().getFont();
 
         List<String> dateLines = TextLineBuilder.getLines(font, getJournalEntryDate(date), canvas.size().x);
-        Vector2i size = font.getSize(dateLines);
+        Vector2i size = JomlUtil.from(font.getSize(dateLines));
         return new Vector2i(size.x, indentAboveDate + size.y + indentBelowDate);
     }
 
@@ -47,7 +48,7 @@ public class TimestampJournalPart implements JournalManager.JournalEntryPart {
         Font font = canvas.getCurrentStyle().getFont();
 
         List<String> dateLines = TextLineBuilder.getLines(font, getJournalEntryDate(date), canvas.size().x);
-        Vector2i dateSize = font.getSize(dateLines);
+        Vector2i dateSize = JomlUtil.from(font.getSize(dateLines));
 
         canvas.getCurrentStyle().setHorizontalTextAlignment(HorizontalAlign.CENTER);
         canvas.drawText(getJournalEntryDate(date), Rect2i.createFromMinAndMax(region.minX(), indentAboveDate + region.minY(), region.maxX(), indentAboveDate + region.minY() + dateSize.y));

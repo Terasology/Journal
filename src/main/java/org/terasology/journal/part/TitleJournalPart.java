@@ -15,6 +15,7 @@
  */
 package org.terasology.journal.part;
 
+import org.terasology.math.JomlUtil;
 import org.terasology.utilities.Assets;
 import org.terasology.journal.JournalManager;
 import org.terasology.math.geom.Rect2i;
@@ -45,7 +46,7 @@ public class TitleJournalPart implements JournalManager.JournalEntryPart {
         Canvas canvas = null;
 
         List<String> lines = TextLineBuilder.getLines(font, text, canvas.size().x);
-        Vector2i size = font.getSize(lines);
+        Vector2i size = JomlUtil.from(font.getSize(lines));
         return new Vector2i(size.x, size.y + 5);
     }
 
