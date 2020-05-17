@@ -1,11 +1,13 @@
 {
-    "id" : "Journal",
-    "version" : "0.1.2-SNAPSHOT",
-    "author" : "Marcin Sciesinski <marcins78@gmail.com>",
-    "displayName" : "Journal",
-    "description" : "Allows displaying story to the player, tracking progress in mods or game in general",
-    "dependencies" : [
-        {"id" : "Core", "minVersion" : "3.0.0"}
+    "id": "Journal",
+    "version": "1.0.0",
+    "author": "Marcin Sciesinski <marcins78@gmail.com>",
+    "displayName": "Journal",
+    "description": "Allows displaying story to the player, tracking progress in mods or game in general",
+    "dependencies": [
+        { "id": "Inventory", "minVersion": "1.1.0" }
     ],
-    "isServerSideOnly" : false
+    "isServerSideOnly": false,
+    "isLibrary": true,
+    "isAugmentation": true
 }
