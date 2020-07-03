@@ -15,16 +15,16 @@
  */
 package org.terasology.journal;
 
-import org.lwjgl.input.Keyboard;
 import org.terasology.input.BindButtonEvent;
 import org.terasology.input.DefaultBinding;
 import org.terasology.input.InputType;
+import org.terasology.input.Keyboard;
 import org.terasology.input.RegisterBindButton;
 
 /**
- * @author Marcin Sciesinski <marcins78@gmail.com>
+ * @author Marcin Sciesinski <marcins78@gmail.com>.
  */
 @RegisterBindButton(id = "openJournal", description = "Open journal", category = "interaction")
-@DefaultBinding(type = InputType.KEY, id = Keyboard.KEY_J)
+@DefaultBinding(type = InputType.KEY, id = Keyboard.KeyId.J)
 public class JournalButton extends BindButtonEvent {
 }
