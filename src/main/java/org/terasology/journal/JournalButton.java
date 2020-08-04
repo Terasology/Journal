@@ -22,7 +22,6 @@ import org.terasology.input.Keyboard;
 import org.terasology.input.RegisterBindButton;
 
 /**
- * @author Marcin Sciesinski <marcins78@gmail.com>.
  */
 @RegisterBindButton(id = "openJournal", description = "Open journal", category = "interaction")
 @DefaultBinding(type = InputType.KEY, id = Keyboard.KeyId.J)
