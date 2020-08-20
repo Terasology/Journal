@@ -41,7 +41,7 @@ public class AnimatedImageJournalPart implements JournalManager.JournalEntryPart
 
     @Override
     public void render(Canvas canvas, Rectanglei region, long date) {
-        int x = horizontalAlign.getOffset(size.x(), region.lengthY());
+        int x = horizontalAlign.getOffset(size.x(), region.lengthX());
 
         long gameTime = CoreRegistry.get(Time.class).getGameTimeInMs();
 

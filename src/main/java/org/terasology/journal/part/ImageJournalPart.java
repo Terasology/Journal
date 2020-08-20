@@ -28,7 +28,7 @@ public class ImageJournalPart implements JournalManager.JournalEntryPart {
 
     @Override
     public void render(Canvas canvas, Rectanglei region, long date) {
-        int x = horizontalAlign.getOffset(texture.getWidth(), region.lengthY());
+        int x = horizontalAlign.getOffset(texture.getWidth(), region.lengthX());
         canvas.drawTexture(texture, new Rectanglei(region.minX + x, region.minY, region.minX + x + texture.getWidth(), region.maxY));
     }
 }
