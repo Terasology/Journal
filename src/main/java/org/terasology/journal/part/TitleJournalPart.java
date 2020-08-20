@@ -15,17 +15,16 @@
  */
 package org.terasology.journal.part;
 
-import org.terasology.math.JomlUtil;
+import org.joml.Rectanglei;
 import org.terasology.utilities.Assets;
 import org.terasology.journal.JournalManager;
-import org.terasology.math.geom.Rect2i;
-import org.terasology.math.geom.Vector2i;
+import org.joml.Vector2i;
 import org.terasology.rendering.assets.font.Font;
-import org.terasology.rendering.nui.Canvas;
-import org.terasology.rendering.nui.Color;
-import org.terasology.rendering.nui.HorizontalAlign;
-import org.terasology.rendering.nui.TextLineBuilder;
-import org.terasology.rendering.nui.VerticalAlign;
+import org.terasology.nui.Canvas;
+import org.terasology.nui.Color;
+import org.terasology.nui.HorizontalAlign;
+import org.terasology.nui.TextLineBuilder;
+import org.terasology.nui.VerticalAlign;
 
 import java.util.List;
 
@@ -46,12 +45,12 @@ public class TitleJournalPart implements JournalManager.JournalEntryPart {
         Canvas canvas = null;
 
         List<String> lines = TextLineBuilder.getLines(font, text, canvas.size().x);
-        Vector2i size = JomlUtil.from(font.getSize(lines));
+        Vector2i size = font.getSize(lines);
         return new Vector2i(size.x, size.y + 5);
     }
 
     @Override
-    public void render(Canvas canvas, Rect2i region, long date) {
+    public void render(Canvas canvas, Rectanglei region, long date) {
         canvas.drawTextRaw(text, font, Color.BLACK, region, HorizontalAlign.CENTER, VerticalAlign.MIDDLE);
     }
 }

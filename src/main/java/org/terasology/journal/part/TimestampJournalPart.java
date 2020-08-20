@@ -1,28 +1,14 @@
-/*
- * Copyright 2014 MovingBlocks
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright 2020 The Terasology Foundation
+// SPDX-License-Identifier: Apache-2.0
 package org.terasology.journal.part;
 
+import org.joml.Rectanglei;
 import org.terasology.journal.JournalManager;
-import org.terasology.math.JomlUtil;
-import org.terasology.math.geom.Rect2i;
-import org.terasology.math.geom.Vector2i;
-import org.terasology.rendering.assets.font.Font;
-import org.terasology.rendering.nui.Canvas;
-import org.terasology.rendering.nui.HorizontalAlign;
-import org.terasology.rendering.nui.TextLineBuilder;
+import org.joml.Vector2i;
+import org.terasology.nui.asset.font.Font;
+import org.terasology.nui.Canvas;
+import org.terasology.nui.HorizontalAlign;
+import org.terasology.nui.TextLineBuilder;
 
 import java.util.List;
 
@@ -39,19 +25,19 @@ public class TimestampJournalPart implements JournalManager.JournalEntryPart {
         Font font = canvas.getCurrentStyle().getFont();
 
         List<String> dateLines = TextLineBuilder.getLines(font, getJournalEntryDate(date), canvas.size().x);
-        Vector2i size = JomlUtil.from(font.getSize(dateLines));
+        Vector2i size = font.getSize(dateLines);
         return new Vector2i(size.x, indentAboveDate + size.y + indentBelowDate);
     }
 
     @Override
-    public void render(Canvas canvas, Rect2i region, long date) {
+    public void render(Canvas canvas, Rectanglei region, long date) {
         Font font = canvas.getCurrentStyle().getFont();
 
         List<String> dateLines = TextLineBuilder.getLines(font, getJournalEntryDate(date), canvas.size().x);
-        Vector2i dateSize = JomlUtil.from(font.getSize(dateLines));
+        Vector2i dateSize = font.getSize(dateLines);
 
         canvas.getCurrentStyle().setHorizontalTextAlignment(HorizontalAlign.CENTER);
-        canvas.drawText(getJournalEntryDate(date), Rect2i.createFromMinAndMax(region.minX(), indentAboveDate + region.minY(), region.maxX(), indentAboveDate + region.minY() + dateSize.y));
+        canvas.drawText(getJournalEntryDate(date), new Rectanglei(region.minX, indentAboveDate + region.minY, region.maxX, indentAboveDate + region.minY + dateSize.y));
     }
 
     private String format(long no) {
