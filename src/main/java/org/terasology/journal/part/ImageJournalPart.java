@@ -3,9 +3,9 @@
 package org.terasology.journal.part;
 
 import org.joml.Rectanglei;
-import org.terasology.journal.JournalManager;
 import org.joml.Vector2i;
-import org.terasology.rendering.assets.texture.TextureRegion;
+import org.terasology.engine.rendering.assets.texture.TextureRegion;
+import org.terasology.journal.JournalManager;
 import org.terasology.nui.Canvas;
 import org.terasology.nui.HorizontalAlign;
 
@@ -13,8 +13,8 @@ import org.terasology.nui.HorizontalAlign;
  * @author Marcin Sciesinski <marcins78@gmail.com>
  */
 public class ImageJournalPart implements JournalManager.JournalEntryPart {
-    private TextureRegion texture;
-    private HorizontalAlign horizontalAlign;
+    private final TextureRegion texture;
+    private final HorizontalAlign horizontalAlign;
 
     public ImageJournalPart(TextureRegion texture, HorizontalAlign horizontalAlign) {
         this.texture = texture;
@@ -29,6 +29,7 @@ public class ImageJournalPart implements JournalManager.JournalEntryPart {
     @Override
     public void render(Canvas canvas, Rectanglei region, long date) {
         int x = horizontalAlign.getOffset(texture.getWidth(), region.lengthX());
-        canvas.drawTexture(texture, new Rectanglei(region.minX + x, region.minY, region.minX + x + texture.getWidth(), region.maxY));
+        canvas.drawTexture(texture, new Rectanglei(region.minX + x, region.minY, region.minX + x + texture.getWidth()
+                , region.maxY));
     }
 }

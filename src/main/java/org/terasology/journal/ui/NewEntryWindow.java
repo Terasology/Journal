@@ -2,8 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.journal.ui;
 
+import org.terasology.engine.rendering.nui.CoreScreenLayer;
 import org.terasology.nui.Canvas;
-import org.terasology.rendering.nui.CoreScreenLayer;
 
 /**
  * @author Marcin Sciesinski <marcins78@gmail.com>

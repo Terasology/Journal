@@ -1,24 +1,24 @@
 {
-    "type" : "newEntryWindow",
-    "skin" : "default",
-    "contents" : {
-        "type" : "relativeLayout",
-        "contents" : [
-            {
-                "type" : "columnLayout",
-                "contents" : [
-                    {
-                        "type" : "UIImage",
-                        "image" : "Journal:NewJournalEntry"
-                    }
-                ],
-                "layoutInfo" : {
-                    "use-content-width" : true,
-                    "use-content-height" : true,
-                    "position-right" : {},
-                    "position-top" : {}
-                }
-            }
-        ]
-    }
+  "type": "newEntryWindow",
+  "skin": "default",
+  "contents": {
+    "type": "relativeLayout",
+    "contents": [
+      {
+        "type": "columnLayout",
+        "contents": [
+          {
+            "type": "UIImage",
+            "image": "Journal:NewJournalEntry"
+          }
+        ],
+        "layoutInfo": {
+          "use-content-width": true,
+          "use-content-height": true,
+          "position-right": {},
+          "position-top": {}
+        }
+      }
+    ]
+  }
 }

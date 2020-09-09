@@ -2,28 +2,28 @@
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.journal.ui;
 
-import org.terasology.entitySystem.prefab.Prefab;
-import org.terasology.logic.common.DisplayNameComponent;
-import org.terasology.logic.inventory.ItemComponent;
-import org.terasology.math.JomlUtil;
 import org.joml.Vector2i;
+import org.terasology.engine.entitySystem.prefab.Prefab;
+import org.terasology.engine.logic.common.DisplayNameComponent;
+import org.terasology.engine.logic.inventory.ItemComponent;
+import org.terasology.engine.math.JomlUtil;
+import org.terasology.engine.rendering.nui.widgets.browser.data.ParagraphData;
+import org.terasology.engine.rendering.nui.widgets.browser.data.basic.flow.ContainerRenderSpace;
+import org.terasology.engine.rendering.nui.widgets.browser.ui.ParagraphRenderable;
+import org.terasology.engine.rendering.nui.widgets.browser.ui.style.ParagraphRenderStyle;
+import org.terasology.engine.utilities.Assets;
+import org.terasology.engine.world.block.Block;
+import org.terasology.inventory.rendering.nui.layers.ingame.ItemIcon;
 import org.terasology.nui.Canvas;
 import org.terasology.nui.HorizontalAlign;
-import org.terasology.rendering.nui.layers.ingame.inventory.ItemIcon;
-import org.terasology.rendering.nui.widgets.browser.data.ParagraphData;
-import org.terasology.rendering.nui.widgets.browser.data.basic.flow.ContainerRenderSpace;
-import org.terasology.rendering.nui.widgets.browser.ui.ParagraphRenderable;
-import org.terasology.rendering.nui.widgets.browser.ui.style.ParagraphRenderStyle;
-import org.terasology.utilities.Assets;
-import org.terasology.world.block.Block;
 
 public class ImageParagraph implements ParagraphData, ParagraphRenderable {
 
-    private int iconSize = 64;
-    private int indentAbove = 5;
-    private int indentBelow = 5;
-    private int iconSpacing = 3;
-    private ItemIcon[] icons;
+    private final int iconSize = 64;
+    private final int indentAbove = 5;
+    private final int indentBelow = 5;
+    private final int iconSpacing = 3;
+    private final ItemIcon[] icons;
 
     public ImageParagraph(Prefab[] itemPrefabs, Block[] blocks) {
         int imageCount = (itemPrefabs != null ? itemPrefabs.length : 0) + (blocks != null ? blocks.length : 0);
@@ -67,10 +67,13 @@ public class ImageParagraph implements ParagraphData, ParagraphRenderable {
     }
 
     @Override
-    public void renderContents(Canvas canvas, Vector2i startPos, ContainerRenderSpace containerRenderSpace, int leftIndent, int rightIndent, ParagraphRenderStyle defaultStyle, HorizontalAlign horizontalAlign, HyperlinkRegister hyperlinkRegister) {
+    public void renderContents(Canvas canvas, Vector2i startPos, ContainerRenderSpace containerRenderSpace,
+                               int leftIndent, int rightIndent, ParagraphRenderStyle defaultStyle,
+                               HorizontalAlign horizontalAlign, HyperlinkRegister hyperlinkRegister) {
         int imageCount = icons.length;
         int drawingWidth = imageCount * iconSize + (imageCount - 1) * imageCount;
-        int x = startPos.x + horizontalAlign.getOffset(drawingWidth, containerRenderSpace.getWidthForVerticalPosition(startPos.y));
+        int x = startPos.x + horizontalAlign.getOffset(drawingWidth,
+                containerRenderSpace.getWidthForVerticalPosition(startPos.y));
         int y = startPos.y + indentAbove;
         for (ItemIcon icon : icons) {
             canvas.drawWidget(icon, JomlUtil.rectangleiFromMinAndSize(x, y, iconSize, iconSize));
@@ -79,7 +82,8 @@ public class ImageParagraph implements ParagraphData, ParagraphRenderable {
     }
 
     @Override
-    public int getPreferredContentsHeight(ParagraphRenderStyle defaultStyle, int yStart, ContainerRenderSpace containerRenderSpace, int sideIndents) {
+    public int getPreferredContentsHeight(ParagraphRenderStyle defaultStyle, int yStart,
+                                          ContainerRenderSpace containerRenderSpace, int sideIndents) {
         return getPreferredSize().y;
     }
 

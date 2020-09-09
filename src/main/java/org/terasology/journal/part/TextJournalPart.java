@@ -3,12 +3,12 @@
 package org.terasology.journal.part;
 
 import org.joml.Rectanglei;
-import org.terasology.journal.JournalManager;
 import org.joml.Vector2i;
-import org.terasology.nui.asset.font.Font;
+import org.terasology.journal.JournalManager;
 import org.terasology.nui.Canvas;
 import org.terasology.nui.HorizontalAlign;
 import org.terasology.nui.TextLineBuilder;
+import org.terasology.nui.asset.font.Font;
 
 import java.util.List;
 
@@ -16,8 +16,8 @@ import java.util.List;
  * @author Marcin Sciesinski <marcins78@gmail.com>
  */
 public class TextJournalPart implements JournalManager.JournalEntryPart {
-    private String text;
-    private HorizontalAlign horizontalAlign;
+    private final String text;
+    private final HorizontalAlign horizontalAlign;
 
     public TextJournalPart(String text) {
         this(text, HorizontalAlign.LEFT);

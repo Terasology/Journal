@@ -4,19 +4,18 @@ package org.terasology.journal.part;
 
 import com.google.common.base.Supplier;
 import org.joml.Rectanglei;
-import org.terasology.journal.JournalManager;
-import org.terasology.math.JomlUtil;
 import org.joml.Vector2i;
-import org.terasology.nui.asset.font.Font;
+import org.terasology.journal.JournalManager;
 import org.terasology.nui.Canvas;
 import org.terasology.nui.HorizontalAlign;
 import org.terasology.nui.TextLineBuilder;
+import org.terasology.nui.asset.font.Font;
 
 import java.util.List;
 
 public class DynamicTextJournalPart implements JournalManager.JournalEntryPart {
-    private Supplier<String> text;
-    private HorizontalAlign horizontalAlign;
+    private final Supplier<String> text;
+    private final HorizontalAlign horizontalAlign;
 
     public DynamicTextJournalPart(Supplier<String> text) {
         this(text, HorizontalAlign.LEFT);

@@ -2,16 +2,16 @@
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.journal;
 
+import org.joml.Vector2i;
+import org.terasology.engine.math.JomlUtil;
+import org.terasology.engine.rendering.nui.widgets.browser.data.ParagraphData;
+import org.terasology.engine.rendering.nui.widgets.browser.data.basic.flow.ContainerRenderSpace;
+import org.terasology.engine.rendering.nui.widgets.browser.ui.ParagraphRenderable;
+import org.terasology.engine.rendering.nui.widgets.browser.ui.style.ParagraphRenderStyle;
 import org.terasology.journal.part.TextJournalPart;
 import org.terasology.journal.part.TimestampJournalPart;
-import org.terasology.math.JomlUtil;
-import org.joml.Vector2i;
 import org.terasology.nui.Canvas;
 import org.terasology.nui.HorizontalAlign;
-import org.terasology.rendering.nui.widgets.browser.data.ParagraphData;
-import org.terasology.rendering.nui.widgets.browser.data.basic.flow.ContainerRenderSpace;
-import org.terasology.rendering.nui.widgets.browser.ui.ParagraphRenderable;
-import org.terasology.rendering.nui.widgets.browser.ui.style.ParagraphRenderStyle;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -22,13 +22,15 @@ import java.util.Map;
 
 @Deprecated
 public class StaticJournalChapterHandler implements JournalChapterHandler {
-    private Map<String, JournalEntryProducer> journalEntries = new HashMap<>();
+    private final Map<String, JournalEntryProducer> journalEntries = new HashMap<>();
 
     public void registerJournalEntry(String entryId, boolean timestamp, String text) {
         if (timestamp) {
-            journalEntries.put(entryId, new EntryPartListProducer(Arrays.asList(new TimestampJournalPart(), new TextJournalPart(text, HorizontalAlign.LEFT))));
+            journalEntries.put(entryId, new EntryPartListProducer(Arrays.asList(new TimestampJournalPart(),
+                    new TextJournalPart(text, HorizontalAlign.LEFT))));
         } else {
-            journalEntries.put(entryId, new EntryPartListProducer(Arrays.asList(new TextJournalPart(text, HorizontalAlign.LEFT))));
+            journalEntries.put(entryId, new EntryPartListProducer(Arrays.asList(new TextJournalPart(text,
+                    HorizontalAlign.LEFT))));
         }
     }
 
@@ -42,7 +44,7 @@ public class StaticJournalChapterHandler implements JournalChapterHandler {
     }
 
     private final class EntryPartListProducer implements JournalEntryProducer {
-        private List<JournalManager.JournalEntryPart> journalEntryParts;
+        private final List<JournalManager.JournalEntryPart> journalEntryParts;
 
         private EntryPartListProducer(List<JournalManager.JournalEntryPart> journalEntryParts) {
             this.journalEntryParts = journalEntryParts;
@@ -60,8 +62,8 @@ public class StaticJournalChapterHandler implements JournalChapterHandler {
     }
 
     private final class ParagraphDataAdapter implements ParagraphData {
-        private JournalManager.JournalEntryPart journalEntryPart;
-        private long date;
+        private final JournalManager.JournalEntryPart journalEntryPart;
+        private final long date;
 
         private ParagraphDataAdapter(JournalManager.JournalEntryPart journalEntryPart, long date) {
             this.journalEntryPart = journalEntryPart;
@@ -77,15 +79,20 @@ public class StaticJournalChapterHandler implements JournalChapterHandler {
         public ParagraphRenderable getParagraphContents() {
             return new ParagraphRenderable() {
                 @Override
-                public void renderContents(Canvas canvas, Vector2i startPos, ContainerRenderSpace containerRenderSpace, int leftIndent, int rightIndent,
-                                           ParagraphRenderStyle defaultStyle, HorizontalAlign horizontalAlign, HyperlinkRegister hyperlinkRegister) {
+                public void renderContents(Canvas canvas, Vector2i startPos,
+                                           ContainerRenderSpace containerRenderSpace, int leftIndent, int rightIndent,
+                                           ParagraphRenderStyle defaultStyle, HorizontalAlign horizontalAlign,
+                                           HyperlinkRegister hyperlinkRegister) {
                     int width = containerRenderSpace.getWidthForVerticalPosition(startPos.y());
-                    int preferredHeight = getPreferredContentsHeight(defaultStyle, startPos.y, containerRenderSpace, leftIndent + rightIndent);
-                    journalEntryPart.render(canvas, JomlUtil.rectangleiFromMinAndSize(startPos.x + leftIndent, startPos.y, width, preferredHeight), date);
+                    int preferredHeight = getPreferredContentsHeight(defaultStyle, startPos.y, containerRenderSpace,
+                            leftIndent + rightIndent);
+                    journalEntryPart.render(canvas, JomlUtil.rectangleiFromMinAndSize(startPos.x + leftIndent,
+                            startPos.y, width, preferredHeight), date);
                 }
 
                 @Override
-                public int getPreferredContentsHeight(ParagraphRenderStyle defaultStyle, int yStart, ContainerRenderSpace containerRenderSpace, int sideIndents) {
+                public int getPreferredContentsHeight(ParagraphRenderStyle defaultStyle, int yStart,
+                                                      ContainerRenderSpace containerRenderSpace, int sideIndents) {
                     return journalEntryPart.getPreferredSize(date).y;
                 }
 

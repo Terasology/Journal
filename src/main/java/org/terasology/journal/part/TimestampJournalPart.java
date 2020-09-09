@@ -3,12 +3,12 @@
 package org.terasology.journal.part;
 
 import org.joml.Rectanglei;
-import org.terasology.journal.JournalManager;
 import org.joml.Vector2i;
-import org.terasology.nui.asset.font.Font;
+import org.terasology.journal.JournalManager;
 import org.terasology.nui.Canvas;
 import org.terasology.nui.HorizontalAlign;
 import org.terasology.nui.TextLineBuilder;
+import org.terasology.nui.asset.font.Font;
 
 import java.util.List;
 
@@ -16,8 +16,8 @@ import java.util.List;
  * @author Marcin Sciesinski <marcins78@gmail.com>
  */
 public class TimestampJournalPart implements JournalManager.JournalEntryPart {
-    private int indentAboveDate = 15;
-    private int indentBelowDate = 10;
+    private final int indentAboveDate = 15;
+    private final int indentBelowDate = 10;
 
     @Override
     public Vector2i getPreferredSize(long date) {
@@ -37,7 +37,8 @@ public class TimestampJournalPart implements JournalManager.JournalEntryPart {
         Vector2i dateSize = font.getSize(dateLines);
 
         canvas.getCurrentStyle().setHorizontalTextAlignment(HorizontalAlign.CENTER);
-        canvas.drawText(getJournalEntryDate(date), new Rectanglei(region.minX, indentAboveDate + region.minY, region.maxX, indentAboveDate + region.minY + dateSize.y));
+        canvas.drawText(getJournalEntryDate(date), new Rectanglei(region.minX, indentAboveDate + region.minY,
+                region.maxX, indentAboveDate + region.minY + dateSize.y));
     }
 
     private String format(long no) {

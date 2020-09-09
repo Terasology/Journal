@@ -3,11 +3,11 @@
 package org.terasology.journal.part;
 
 import org.joml.Rectanglei;
-import org.terasology.engine.Time;
-import org.terasology.journal.JournalManager;
 import org.joml.Vector2i;
-import org.terasology.registry.CoreRegistry;
-import org.terasology.rendering.assets.texture.Texture;
+import org.terasology.engine.core.Time;
+import org.terasology.engine.registry.CoreRegistry;
+import org.terasology.engine.rendering.assets.texture.Texture;
+import org.terasology.journal.JournalManager;
 import org.terasology.nui.Canvas;
 import org.terasology.nui.HorizontalAlign;
 
@@ -18,10 +18,10 @@ import java.util.List;
  * @author Marcin Sciesinski <marcins78@gmail.com>
  */
 public class AnimatedImageJournalPart implements JournalManager.JournalEntryPart {
-    private Vector2i size;
-    private HorizontalAlign horizontalAlign;
+    private final Vector2i size;
+    private final HorizontalAlign horizontalAlign;
 
-    private List<ImageDefinition> imageDefinitions = new LinkedList<>();
+    private final List<ImageDefinition> imageDefinitions = new LinkedList<>();
     private long cycleLength;
 
     public AnimatedImageJournalPart(Vector2i size, HorizontalAlign horizontalAlign) {
@@ -49,7 +49,8 @@ public class AnimatedImageJournalPart implements JournalManager.JournalEntryPart
 
         Texture texture = getImageForCycleTime(cycleTime);
 
-        canvas.drawTexture(texture, new Rectanglei(region.minX + x, region.minY, region.minX + x + texture.getWidth(), region.maxY));
+        canvas.drawTexture(texture, new Rectanglei(region.minX + x, region.minY, region.minX + x + texture.getWidth()
+                , region.maxY));
     }
 
     private Texture getImageForCycleTime(long cycleTime) {
@@ -64,8 +65,8 @@ public class AnimatedImageJournalPart implements JournalManager.JournalEntryPart
     }
 
     private class ImageDefinition {
-        private Texture texture;
-        private long duration;
+        private final Texture texture;
+        private final long duration;
 
         private ImageDefinition(Texture texture, long duration) {
             this.texture = texture;

@@ -3,8 +3,8 @@
 package org.terasology.journal.ui;
 
 import org.joml.Rectanglei;
-import org.terasology.journal.JournalManager;
 import org.joml.Vector2i;
+import org.terasology.journal.JournalManager;
 import org.terasology.nui.Canvas;
 import org.terasology.nui.itemRendering.ItemRenderer;
 
