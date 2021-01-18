@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.journal.part;
 
-import org.joml.Rectanglei;
+import org.terasology.joml.geom.Rectanglei;
 import org.terasology.journal.JournalManager;
 import org.joml.Vector2i;
 import org.terasology.nui.asset.font.Font;

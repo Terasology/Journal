@@ -15,7 +15,7 @@
  */
 package org.terasology.journal.part;
 
-import org.joml.Rectanglei;
+import org.terasology.joml.geom.Rectanglei;
 import org.terasology.utilities.Assets;
 import org.terasology.journal.JournalManager;
 import org.joml.Vector2i;
