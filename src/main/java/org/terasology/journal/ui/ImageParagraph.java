@@ -3,9 +3,9 @@
 package org.terasology.journal.ui;
 
 import org.terasology.entitySystem.prefab.Prefab;
+import org.terasology.joml.geom.Rectanglei;
 import org.terasology.logic.common.DisplayNameComponent;
 import org.terasology.logic.inventory.ItemComponent;
-import org.terasology.math.JomlUtil;
 import org.joml.Vector2i;
 import org.terasology.nui.Canvas;
 import org.terasology.nui.HorizontalAlign;
@@ -73,7 +73,7 @@ public class ImageParagraph implements ParagraphData, ParagraphRenderable {
         int x = startPos.x + horizontalAlign.getOffset(drawingWidth, containerRenderSpace.getWidthForVerticalPosition(startPos.y));
         int y = startPos.y + indentAbove;
         for (ItemIcon icon : icons) {
-            canvas.drawWidget(icon, JomlUtil.rectangleiFromMinAndSize(x, y, iconSize, iconSize));
+            canvas.drawWidget(icon, new Rectanglei(x, y).setSize(iconSize, iconSize));
             x += iconSize + iconSpacing;
         }
     }

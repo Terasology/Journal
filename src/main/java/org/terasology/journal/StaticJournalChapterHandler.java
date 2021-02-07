@@ -2,10 +2,10 @@
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.journal;
 
+import org.joml.Vector2i;
+import org.terasology.joml.geom.Rectanglei;
 import org.terasology.journal.part.TextJournalPart;
 import org.terasology.journal.part.TimestampJournalPart;
-import org.terasology.math.JomlUtil;
-import org.joml.Vector2i;
 import org.terasology.nui.Canvas;
 import org.terasology.nui.HorizontalAlign;
 import org.terasology.rendering.nui.widgets.browser.data.ParagraphData;
@@ -81,7 +81,7 @@ public class StaticJournalChapterHandler implements JournalChapterHandler {
                                            ParagraphRenderStyle defaultStyle, HorizontalAlign horizontalAlign, HyperlinkRegister hyperlinkRegister) {
                     int width = containerRenderSpace.getWidthForVerticalPosition(startPos.y());
                     int preferredHeight = getPreferredContentsHeight(defaultStyle, startPos.y, containerRenderSpace, leftIndent + rightIndent);
-                    journalEntryPart.render(canvas, JomlUtil.rectangleiFromMinAndSize(startPos.x + leftIndent, startPos.y, width, preferredHeight), date);
+                    journalEntryPart.render(canvas, new Rectanglei(startPos.x + leftIndent, startPos.y).setSize(width, preferredHeight), date);
                 }
 
                 @Override
