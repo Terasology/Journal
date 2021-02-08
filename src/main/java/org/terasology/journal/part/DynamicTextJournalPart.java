@@ -3,14 +3,13 @@
 package org.terasology.journal.part;
 
 import com.google.common.base.Supplier;
+import org.joml.Vector2i;
 import org.terasology.joml.geom.Rectanglei;
 import org.terasology.journal.JournalManager;
-import org.terasology.math.JomlUtil;
-import org.joml.Vector2i;
-import org.terasology.nui.asset.font.Font;
 import org.terasology.nui.Canvas;
 import org.terasology.nui.HorizontalAlign;
 import org.terasology.nui.TextLineBuilder;
+import org.terasology.nui.asset.font.Font;
 
 import java.util.List;
 
