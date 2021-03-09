@@ -4,13 +4,13 @@ package org.terasology.journal;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.terasology.engine.rendering.nui.widgets.browser.data.DocumentData;
+import org.terasology.engine.rendering.nui.widgets.browser.data.ParagraphData;
+import org.terasology.engine.rendering.nui.widgets.browser.data.html.basic.DefaultParagraphData;
+import org.terasology.engine.rendering.nui.widgets.browser.ui.style.DocumentRenderStyle;
+import org.terasology.engine.rendering.nui.widgets.browser.ui.style.ParagraphRenderStyle;
 import org.terasology.nui.Color;
 import org.terasology.nui.HorizontalAlign;
-import org.terasology.rendering.nui.widgets.browser.data.DocumentData;
-import org.terasology.rendering.nui.widgets.browser.data.ParagraphData;
-import org.terasology.rendering.nui.widgets.browser.data.html.basic.DefaultParagraphData;
-import org.terasology.rendering.nui.widgets.browser.ui.style.DocumentRenderStyle;
-import org.terasology.rendering.nui.widgets.browser.ui.style.ParagraphRenderStyle;
 
 import java.util.Collection;
 import java.util.Collections;

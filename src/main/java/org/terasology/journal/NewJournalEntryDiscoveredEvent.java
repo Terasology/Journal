@@ -15,8 +15,8 @@
  */
 package org.terasology.journal;
 
-import org.terasology.network.NetworkEvent;
-import org.terasology.network.OwnerEvent;
+import org.terasology.engine.network.NetworkEvent;
+import org.terasology.engine.network.OwnerEvent;
 
 /**
  * @author Marcin Sciesinski <marcins78@gmail.com>

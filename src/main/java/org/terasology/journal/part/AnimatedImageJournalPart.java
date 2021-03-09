@@ -2,12 +2,12 @@
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.journal.part;
 
-import org.terasology.joml.geom.Rectanglei;
-import org.terasology.engine.Time;
-import org.terasology.journal.JournalManager;
 import org.joml.Vector2i;
-import org.terasology.registry.CoreRegistry;
-import org.terasology.rendering.assets.texture.Texture;
+import org.terasology.engine.core.Time;
+import org.terasology.engine.registry.CoreRegistry;
+import org.terasology.engine.rendering.assets.texture.Texture;
+import org.terasology.joml.geom.Rectanglei;
+import org.terasology.journal.JournalManager;
 import org.terasology.nui.Canvas;
 import org.terasology.nui.HorizontalAlign;
 

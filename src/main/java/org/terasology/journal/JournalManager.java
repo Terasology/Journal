@@ -2,12 +2,12 @@
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.journal;
 
-import org.terasology.joml.geom.Rectanglei;
 import org.joml.Vector2i;
-import org.terasology.entitySystem.entity.EntityRef;
-import org.terasology.rendering.assets.texture.TextureRegion;
+import org.terasology.engine.entitySystem.entity.EntityRef;
+import org.terasology.engine.rendering.assets.texture.TextureRegion;
+import org.terasology.engine.rendering.nui.widgets.browser.data.DocumentData;
+import org.terasology.joml.geom.Rectanglei;
 import org.terasology.nui.Canvas;
-import org.terasology.rendering.nui.widgets.browser.data.DocumentData;
 
 import java.util.Map;
 

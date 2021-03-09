@@ -3,15 +3,15 @@
 package org.terasology.journal;
 
 import org.joml.Vector2i;
+import org.terasology.engine.rendering.nui.widgets.browser.data.ParagraphData;
+import org.terasology.engine.rendering.nui.widgets.browser.data.basic.flow.ContainerRenderSpace;
+import org.terasology.engine.rendering.nui.widgets.browser.ui.ParagraphRenderable;
+import org.terasology.engine.rendering.nui.widgets.browser.ui.style.ParagraphRenderStyle;
 import org.terasology.joml.geom.Rectanglei;
 import org.terasology.journal.part.TextJournalPart;
 import org.terasology.journal.part.TimestampJournalPart;
 import org.terasology.nui.Canvas;
 import org.terasology.nui.HorizontalAlign;
-import org.terasology.rendering.nui.widgets.browser.data.ParagraphData;
-import org.terasology.rendering.nui.widgets.browser.data.basic.flow.ContainerRenderSpace;
-import org.terasology.rendering.nui.widgets.browser.ui.ParagraphRenderable;
-import org.terasology.rendering.nui.widgets.browser.ui.style.ParagraphRenderStyle;
 
 import java.util.Arrays;
 import java.util.Collection;

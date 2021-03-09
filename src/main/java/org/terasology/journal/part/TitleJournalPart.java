@@ -15,11 +15,11 @@
  */
 package org.terasology.journal.part;
 
-import org.terasology.joml.geom.Rectanglei;
-import org.terasology.utilities.Assets;
-import org.terasology.journal.JournalManager;
 import org.joml.Vector2i;
-import org.terasology.rendering.assets.font.Font;
+import org.terasology.engine.rendering.assets.font.Font;
+import org.terasology.engine.utilities.Assets;
+import org.terasology.joml.geom.Rectanglei;
+import org.terasology.journal.JournalManager;
 import org.terasology.nui.Canvas;
 import org.terasology.nui.Color;
 import org.terasology.nui.HorizontalAlign;

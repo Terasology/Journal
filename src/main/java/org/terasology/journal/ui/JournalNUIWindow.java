@@ -2,18 +2,18 @@
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.journal.ui;
 
-import org.terasology.entitySystem.entity.EntityRef;
+import org.terasology.engine.entitySystem.entity.EntityRef;
+import org.terasology.engine.logic.players.LocalPlayer;
+import org.terasology.engine.registry.CoreRegistry;
+import org.terasology.engine.rendering.nui.CoreScreenLayer;
+import org.terasology.engine.rendering.nui.widgets.browser.data.DocumentData;
+import org.terasology.engine.rendering.nui.widgets.browser.ui.BrowserWidget;
 import org.terasology.journal.JournalAccessComponent;
 import org.terasology.journal.JournalManager;
-import org.terasology.logic.players.LocalPlayer;
-import org.terasology.registry.CoreRegistry;
-import org.terasology.rendering.nui.CoreScreenLayer;
 import org.terasology.nui.UIWidget;
 import org.terasology.nui.layouts.ScrollableArea;
 import org.terasology.nui.widgets.ItemActivateEventListener;
 import org.terasology.nui.widgets.UIList;
-import org.terasology.rendering.nui.widgets.browser.data.DocumentData;
-import org.terasology.rendering.nui.widgets.browser.ui.BrowserWidget;
 
 import java.util.LinkedList;
 import java.util.List;

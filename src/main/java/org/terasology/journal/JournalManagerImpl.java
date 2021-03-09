@@ -15,12 +15,12 @@
  */
 package org.terasology.journal;
 
-import org.terasology.entitySystem.entity.EntityRef;
-import org.terasology.entitySystem.systems.BaseComponentSystem;
-import org.terasology.entitySystem.systems.RegisterSystem;
-import org.terasology.registry.Share;
-import org.terasology.rendering.assets.texture.TextureRegion;
-import org.terasology.rendering.nui.widgets.browser.data.DocumentData;
+import org.terasology.engine.entitySystem.entity.EntityRef;
+import org.terasology.engine.entitySystem.systems.BaseComponentSystem;
+import org.terasology.engine.entitySystem.systems.RegisterSystem;
+import org.terasology.engine.registry.Share;
+import org.terasology.engine.rendering.assets.texture.TextureRegion;
+import org.terasology.engine.rendering.nui.widgets.browser.data.DocumentData;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
