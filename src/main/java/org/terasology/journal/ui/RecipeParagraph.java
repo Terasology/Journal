@@ -19,7 +19,6 @@ import org.joml.Vector2i;
 import org.terasology.engine.entitySystem.prefab.Prefab;
 import org.terasology.engine.logic.common.DisplayNameComponent;
 import org.terasology.engine.logic.inventory.ItemComponent;
-import org.terasology.engine.rendering.nui.layers.ingame.inventory.ItemIcon;
 import org.terasology.engine.rendering.nui.widgets.browser.data.ParagraphData;
 import org.terasology.engine.rendering.nui.widgets.browser.data.basic.flow.ContainerRenderSpace;
 import org.terasology.engine.rendering.nui.widgets.browser.ui.ParagraphRenderable;
@@ -29,6 +28,7 @@ import org.terasology.engine.world.block.Block;
 import org.terasology.joml.geom.Rectanglei;
 import org.terasology.nui.Canvas;
 import org.terasology.nui.HorizontalAlign;
+import org.terasology.rendering.nui.layers.ingame.inventory.ItemIcon;
 
 public class RecipeParagraph implements ParagraphData, ParagraphRenderable {
     private int indentAbove = 5;
