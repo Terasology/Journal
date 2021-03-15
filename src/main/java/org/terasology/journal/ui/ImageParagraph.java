@@ -15,7 +15,7 @@ import org.terasology.engine.world.block.Block;
 import org.terasology.joml.geom.Rectanglei;
 import org.terasology.nui.Canvas;
 import org.terasology.nui.HorizontalAlign;
-import org.terasology.rendering.nui.layers.ingame.inventory.ItemIcon;
+import org.terasology.module.inventory.ui.ItemIcon;
 
 public class ImageParagraph implements ParagraphData, ParagraphRenderable {
 
