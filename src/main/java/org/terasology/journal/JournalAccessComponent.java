@@ -15,4 +15,10 @@ import java.util.Map;
 public class JournalAccessComponent implements Component<JournalAccessComponent> {
     @Replicate
     public Map<String, List<String>> discoveredJournalEntries = new LinkedHashMap<>();
+
+    @Override
+    public void copy(JournalAccessComponent other) {
+        this.discoveredJournalEntries.clear();
+        this.discoveredJournalEntries.putAll(other.discoveredJournalEntries);
+    }
 }
