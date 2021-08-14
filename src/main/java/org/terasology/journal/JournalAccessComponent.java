@@ -17,7 +17,7 @@ public class JournalAccessComponent implements Component<JournalAccessComponent>
     public Map<String, List<String>> discoveredJournalEntries = new LinkedHashMap<>();
 
     @Override
-    public void copy(JournalAccessComponent other) {
+    public void copyFrom(JournalAccessComponent other) {
         this.discoveredJournalEntries.clear();
         this.discoveredJournalEntries.putAll(other.discoveredJournalEntries);
     }
