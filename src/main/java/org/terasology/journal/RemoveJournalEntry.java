@@ -15,7 +15,7 @@
  */
 package org.terasology.journal;
 
-import org.terasology.engine.entitySystem.event.Event;
+import org.terasology.gestalt.entitysystem.event.Event;
 
 public class RemoveJournalEntry implements Event {
     private String chapterId;
