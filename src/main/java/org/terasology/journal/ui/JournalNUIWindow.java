@@ -5,18 +5,14 @@ package org.terasology.journal.ui;
 import org.terasology.engine.entitySystem.entity.EntityRef;
 import org.terasology.engine.logic.players.LocalPlayer;
 import org.terasology.engine.registry.CoreRegistry;
-import org.terasology.engine.registry.In;
-import org.terasology.engine.rendering.assets.texture.Texture;
 import org.terasology.engine.rendering.nui.CoreScreenLayer;
 import org.terasology.engine.rendering.nui.widgets.browser.data.DocumentData;
 import org.terasology.engine.rendering.nui.widgets.browser.ui.BrowserWidget;
-import org.terasology.gestalt.assets.management.AssetManager;
 import org.terasology.journal.JournalAccessComponent;
 import org.terasology.journal.JournalManager;
 import org.terasology.nui.UIWidget;
 import org.terasology.nui.layouts.ScrollableArea;
 import org.terasology.nui.widgets.ItemActivateEventListener;
-import org.terasology.nui.widgets.UIImage;
 import org.terasology.nui.widgets.UIList;
 
 import java.util.LinkedList;
@@ -31,12 +27,6 @@ public class JournalNUIWindow extends CoreScreenLayer {
     private UIList<JournalManager.JournalChapter> chapterList;
     private JournalChapterRenderer chapterRenderer = new JournalChapterRenderer();
     private JournalManager.JournalChapter selectedChapter;
-    private UIImage fetchFlag;
-    private UIImage deliverFlag;
-    private UIImage inventory;
-    private UIImage statistics;
-    @In
-    AssetManager assetManager;
 
     @Override
     public void initialise() {
@@ -44,10 +34,6 @@ public class JournalNUIWindow extends CoreScreenLayer {
         scrollArea.moveToBottom();
 
         journalList = find("journalList", BrowserWidget.class);
-        fetchFlag = find("fetchFlag", UIImage.class);
-        deliverFlag = find("deliverFlag", UIImage.class);
-        inventory = find("openInventory", UIImage.class);
-        statistics = find("openStatistics", UIImage.class);
 
         chapterList = (UIList<JournalManager.JournalChapter>) find("chapterList", UIList.class);
 
@@ -94,16 +80,6 @@ public class JournalNUIWindow extends CoreScreenLayer {
     }
 
     private void updateJournal() {
-        if (selectedChapter.getChapterId().equals("LightAndShadow")) {
-            Texture texture = assetManager.getAsset("LightAndShadow:fetchFlag", Texture.class).get();
-            fetchFlag.setImage(texture);
-            texture = assetManager.getAsset("LightAndShadow:deliverFlag", Texture.class).get();
-            deliverFlag.setImage(texture);
-            texture = assetManager.getAsset("LightAndShadow:OpenStatistics", Texture.class).get();
-            statistics.setImage(texture);
-            texture = assetManager.getAsset("LightAndShadow:OpenInventory", Texture.class).get();
-            inventory.setImage(texture);
-        }
         JournalManager journalManager = CoreRegistry.get(JournalManager.class);
         EntityRef playerEntity = CoreRegistry.get(LocalPlayer.class).getCharacterEntity();
         Map<JournalManager.JournalChapter, DocumentData> playerEntries = journalManager.getPlayerEntries(playerEntity);
