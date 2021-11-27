@@ -43,7 +43,7 @@ public class ImageParagraph implements ParagraphData, ParagraphRenderable {
         if (blocks != null) {
             for (int i = 0; i < blocks.length; i++) {
                 ItemIcon itemIcon = new ItemIcon();
-                itemIcon.setMesh(blocks[i].getMesh());
+                itemIcon.setMesh(blocks[i].getMeshGenerator().getStandaloneMesh());
                 itemIcon.setMeshTexture(Assets.getTexture("engine:terrain").get());
                 itemIcon.setTooltip(blocks[i].getDisplayName());
                 icons[i + itemPrefabs.length] = itemIcon;
