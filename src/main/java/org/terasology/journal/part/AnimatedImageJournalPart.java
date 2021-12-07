@@ -1,4 +1,4 @@
-// Copyright 2020 The Terasology Foundation
+// Copyright 2021 The Terasology Foundation
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.journal.part;
 
@@ -14,9 +14,6 @@ import org.terasology.nui.HorizontalAlign;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * @author Marcin Sciesinski <marcins78@gmail.com>
- */
 public class AnimatedImageJournalPart implements JournalManager.JournalEntryPart {
     private Vector2i size;
     private HorizontalAlign horizontalAlign;
@@ -63,7 +60,7 @@ public class AnimatedImageJournalPart implements JournalManager.JournalEntryPart
         return null;
     }
 
-    private class ImageDefinition {
+    private final class ImageDefinition {
         private Texture texture;
         private long duration;
 

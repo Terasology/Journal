@@ -1,4 +1,4 @@
-// Copyright 2020 The Terasology Foundation
+// Copyright 2021 The Terasology Foundation
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.journal.ui;
 
@@ -67,7 +67,8 @@ public class ImageParagraph implements ParagraphData, ParagraphRenderable {
     }
 
     @Override
-    public void renderContents(Canvas canvas, Vector2i startPos, ContainerRenderSpace containerRenderSpace, int leftIndent, int rightIndent, ParagraphRenderStyle defaultStyle, HorizontalAlign horizontalAlign, HyperlinkRegister hyperlinkRegister) {
+    public void renderContents(Canvas canvas, Vector2i startPos, ContainerRenderSpace containerRenderSpace, int leftIndent, int rightIndent,
+                               ParagraphRenderStyle defaultStyle, HorizontalAlign horizontalAlign, HyperlinkRegister hyperlinkRegister) {
         int imageCount = icons.length;
         int drawingWidth = imageCount * iconSize + (imageCount - 1) * imageCount;
         int x = startPos.x + horizontalAlign.getOffset(drawingWidth, containerRenderSpace.getWidthForVerticalPosition(startPos.y));
@@ -79,7 +80,8 @@ public class ImageParagraph implements ParagraphData, ParagraphRenderable {
     }
 
     @Override
-    public int getPreferredContentsHeight(ParagraphRenderStyle defaultStyle, int yStart, ContainerRenderSpace containerRenderSpace, int sideIndents) {
+    public int getPreferredContentsHeight(ParagraphRenderStyle defaultStyle, int yStart,
+                                          ContainerRenderSpace containerRenderSpace, int sideIndents) {
         return getPreferredSize().y;
     }
 

@@ -1,4 +1,4 @@
-// Copyright 2020 The Terasology Foundation
+// Copyright 2021 The Terasology Foundation
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.journal.part;
 
@@ -12,9 +12,6 @@ import org.terasology.nui.TextLineBuilder;
 
 import java.util.List;
 
-/**
- * @author Marcin Sciesinski <marcins78@gmail.com>
- */
 public class TextJournalPart implements JournalManager.JournalEntryPart {
     private String text;
     private HorizontalAlign horizontalAlign;

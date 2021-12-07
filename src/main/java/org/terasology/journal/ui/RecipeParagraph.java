@@ -1,18 +1,5 @@
-/*
- * Copyright 2017 MovingBlocks
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// Copyright 2021 The Terasology Foundation
+// SPDX-License-Identifier: Apache-2.0
 package org.terasology.journal.ui;
 
 import org.joml.Vector2i;
@@ -26,9 +13,9 @@ import org.terasology.engine.rendering.nui.widgets.browser.ui.style.ParagraphRen
 import org.terasology.engine.utilities.Assets;
 import org.terasology.engine.world.block.Block;
 import org.terasology.joml.geom.Rectanglei;
+import org.terasology.module.inventory.ui.ItemIcon;
 import org.terasology.nui.Canvas;
 import org.terasology.nui.HorizontalAlign;
-import org.terasology.module.inventory.ui.ItemIcon;
 
 public class RecipeParagraph implements ParagraphData, ParagraphRenderable {
     private int indentAbove = 5;
@@ -94,13 +81,14 @@ public class RecipeParagraph implements ParagraphData, ParagraphRenderable {
     }
 
     @Override
-    public void renderContents(Canvas canvas, Vector2i startPos, ContainerRenderSpace containerRenderSpace, int leftIndent, int rightIndent, ParagraphRenderStyle defaultStyle, HorizontalAlign horizontalAlign, HyperlinkRegister hyperlinkRegister) {
+    public void renderContents(Canvas canvas, Vector2i startPos, ContainerRenderSpace containerRenderSpace, int leftIndent, int rightIndent,
+                               ParagraphRenderStyle defaultStyle, HorizontalAlign horizontalAlign, HyperlinkRegister hyperlinkRegister) {
         int ingredientsCount = ingredientIcons.length;
         int drawingWidth = ingredientsCount * iconSize + (ingredientsCount - 1) * ingredientSpacing + resultSpacing + iconSize;
         int x = startPos.x + horizontalAlign.getOffset(drawingWidth, containerRenderSpace.getWidthForVerticalPosition(startPos.y));
         int y = startPos.y + indentAbove;
         for (int i = 0; i < ingredientIcons.length; i++) {
-            canvas.drawWidget(ingredientIcons[i], new Rectanglei(x, y).setSize( iconSize, iconSize));
+            canvas.drawWidget(ingredientIcons[i], new Rectanglei(x, y).setSize(iconSize, iconSize));
             x += iconSize + ingredientSpacing;
         }
         x -= ingredientSpacing;
@@ -109,7 +97,8 @@ public class RecipeParagraph implements ParagraphData, ParagraphRenderable {
     }
 
     @Override
-    public int getPreferredContentsHeight(ParagraphRenderStyle defaultStyle, int yStart, ContainerRenderSpace containerRenderSpace, int sideIndents) {
+    public int getPreferredContentsHeight(ParagraphRenderStyle defaultStyle, int yStart,
+                                          ContainerRenderSpace containerRenderSpace, int sideIndents) {
         return getPreferredSize().y;
     }
 
