@@ -1,4 +1,4 @@
-// Copyright 2020 The Terasology Foundation
+// Copyright 2021 The Terasology Foundation
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.journal.ui;
 
@@ -19,9 +19,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author Marcin Sciesinski <marcins78@gmail.com>
- */
 public class JournalNUIWindow extends CoreScreenLayer {
     private BrowserWidget journalList;
     private UIList<JournalManager.JournalChapter> chapterList;

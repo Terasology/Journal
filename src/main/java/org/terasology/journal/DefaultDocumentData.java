@@ -1,4 +1,4 @@
-// Copyright 2020 The Terasology Foundation
+// Copyright 2021 The Terasology Foundation
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.journal;
 
@@ -18,15 +18,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class DefaultDocumentData implements DocumentData {
-    private DocumentRenderStyle documentRenderStyle;
-    private List<DefaultParagraphData> paragraphs = new LinkedList<>();
     private static final Logger logger = LoggerFactory.getLogger(DefaultDocumentData.class);
 
-    private static final Color UNREAD_COLOR = new Color(255,255,225);
+    private static final Color UNREAD_COLOR = new Color(255, 255, 225);
 
-    public DefaultDocumentData(DocumentRenderStyle documentRenderStyle) {
-        this.documentRenderStyle = documentRenderStyle;
-    }
+    private DocumentRenderStyle documentRenderStyle;
+    private List<DefaultParagraphData> paragraphs = new LinkedList<>();
 
 
     private ParagraphRenderStyle unreadParagraph = new ParagraphRenderStyle() {
@@ -34,6 +31,7 @@ public class DefaultDocumentData implements DocumentData {
         public Color getParagraphBackground() {
             return UNREAD_COLOR;
         }
+
         @Override
         public HorizontalAlign getHorizontalAlignment() {
             return HorizontalAlign.CENTER;
@@ -46,6 +44,10 @@ public class DefaultDocumentData implements DocumentData {
             return HorizontalAlign.CENTER;
         }
     };
+
+    public DefaultDocumentData(DocumentRenderStyle documentRenderStyle) {
+        this.documentRenderStyle = documentRenderStyle;
+    }
 
     @Override
     public DocumentRenderStyle getDocumentRenderStyle() {

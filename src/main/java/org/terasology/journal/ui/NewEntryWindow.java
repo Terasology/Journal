@@ -1,13 +1,10 @@
-// Copyright 2020 The Terasology Foundation
+// Copyright 2021 The Terasology Foundation
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.journal.ui;
 
 import org.terasology.engine.rendering.nui.CoreScreenLayer;
 import org.terasology.nui.Canvas;
 
-/**
- * @author Marcin Sciesinski <marcins78@gmail.com>
- */
 public class NewEntryWindow extends CoreScreenLayer {
 
     private float alpha = 1f;
