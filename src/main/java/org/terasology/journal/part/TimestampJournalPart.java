@@ -1,4 +1,4 @@
-// Copyright 2020 The Terasology Foundation
+// Copyright 2021 The Terasology Foundation
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.journal.part;
 
@@ -12,9 +12,6 @@ import org.terasology.nui.TextLineBuilder;
 
 import java.util.List;
 
-/**
- * @author Marcin Sciesinski <marcins78@gmail.com>
- */
 public class TimestampJournalPart implements JournalManager.JournalEntryPart {
     private int indentAboveDate = 15;
     private int indentBelowDate = 10;
@@ -37,7 +34,8 @@ public class TimestampJournalPart implements JournalManager.JournalEntryPart {
         Vector2i dateSize = font.getSize(dateLines);
 
         canvas.getCurrentStyle().setHorizontalTextAlignment(HorizontalAlign.CENTER);
-        canvas.drawText(getJournalEntryDate(date), new Rectanglei(region.minX, indentAboveDate + region.minY, region.maxX, indentAboveDate + region.minY + dateSize.y));
+        canvas.drawText(getJournalEntryDate(date), new Rectanglei(region.minX, indentAboveDate + region.minY, region.maxX,
+                indentAboveDate + region.minY + dateSize.y));
     }
 
     private String format(long no) {

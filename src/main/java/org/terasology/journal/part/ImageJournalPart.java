@@ -1,4 +1,4 @@
-// Copyright 2020 The Terasology Foundation
+// Copyright 2021 The Terasology Foundation
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.journal.part;
 
@@ -9,9 +9,6 @@ import org.terasology.journal.JournalManager;
 import org.terasology.nui.Canvas;
 import org.terasology.nui.HorizontalAlign;
 
-/**
- * @author Marcin Sciesinski <marcins78@gmail.com>
- */
 public class ImageJournalPart implements JournalManager.JournalEntryPart {
     private TextureRegion texture;
     private HorizontalAlign horizontalAlign;

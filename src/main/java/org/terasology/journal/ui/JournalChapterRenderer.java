@@ -1,4 +1,4 @@
-// Copyright 2020 The Terasology Foundation
+// Copyright 2021 The Terasology Foundation
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.journal.ui;
 
@@ -8,9 +8,6 @@ import org.joml.Vector2i;
 import org.terasology.nui.Canvas;
 import org.terasology.nui.itemRendering.ItemRenderer;
 
-/**
- * @author Marcin Sciesinski <marcins78@gmail.com>
- */
 public class JournalChapterRenderer implements ItemRenderer<JournalManager.JournalChapter> {
     @Override
     public void draw(JournalManager.JournalChapter value, Canvas canvas) {

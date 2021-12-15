@@ -1,4 +1,4 @@
-// Copyright 2020 The Terasology Foundation
+// Copyright 2021 The Terasology Foundation
 // SPDX-License-Identifier: Apache-2.0
 package org.terasology.journal;
 
@@ -26,7 +26,8 @@ public class StaticJournalChapterHandler implements JournalChapterHandler {
 
     public void registerJournalEntry(String entryId, boolean timestamp, String text) {
         if (timestamp) {
-            journalEntries.put(entryId, new EntryPartListProducer(Arrays.asList(new TimestampJournalPart(), new TextJournalPart(text, HorizontalAlign.LEFT))));
+            journalEntries.put(entryId, new EntryPartListProducer(Arrays.asList(
+                    new TimestampJournalPart(), new TextJournalPart(text, HorizontalAlign.LEFT))));
         } else {
             journalEntries.put(entryId, new EntryPartListProducer(Arrays.asList(new TextJournalPart(text, HorizontalAlign.LEFT))));
         }
@@ -77,15 +78,19 @@ public class StaticJournalChapterHandler implements JournalChapterHandler {
         public ParagraphRenderable getParagraphContents() {
             return new ParagraphRenderable() {
                 @Override
-                public void renderContents(Canvas canvas, Vector2i startPos, ContainerRenderSpace containerRenderSpace, int leftIndent, int rightIndent,
-                                           ParagraphRenderStyle defaultStyle, HorizontalAlign horizontalAlign, HyperlinkRegister hyperlinkRegister) {
+                public void renderContents(Canvas canvas, Vector2i startPos, ContainerRenderSpace containerRenderSpace,
+                                           int leftIndent, int rightIndent, ParagraphRenderStyle defaultStyle,
+                                           HorizontalAlign horizontalAlign, HyperlinkRegister hyperlinkRegister) {
                     int width = containerRenderSpace.getWidthForVerticalPosition(startPos.y());
-                    int preferredHeight = getPreferredContentsHeight(defaultStyle, startPos.y, containerRenderSpace, leftIndent + rightIndent);
-                    journalEntryPart.render(canvas, new Rectanglei(startPos.x + leftIndent, startPos.y).setSize(width, preferredHeight), date);
+                    int preferredHeight = getPreferredContentsHeight(defaultStyle, startPos.y, containerRenderSpace,
+                            leftIndent + rightIndent);
+                    journalEntryPart.render(canvas, new Rectanglei(startPos.x + leftIndent, startPos.y)
+                            .setSize(width, preferredHeight), date);
                 }
 
                 @Override
-                public int getPreferredContentsHeight(ParagraphRenderStyle defaultStyle, int yStart, ContainerRenderSpace containerRenderSpace, int sideIndents) {
+                public int getPreferredContentsHeight(ParagraphRenderStyle defaultStyle,
+                                                      int yStart, ContainerRenderSpace containerRenderSpace, int sideIndents) {
                     return journalEntryPart.getPreferredSize(date).y;
                 }
 

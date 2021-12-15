@@ -9,9 +9,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author Marcin Sciesinski <marcins78@gmail.com>
- */
 public class JournalAccessComponent implements Component<JournalAccessComponent> {
     @Replicate
     public Map<String, List<String>> discoveredJournalEntries = new LinkedHashMap<>();
